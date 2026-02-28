@@ -1,36 +1,119 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Starter
+
+A modern, scalable Next.js App Router boilerplate with TypeScript, Tailwind CSS, and comprehensive tooling. Mirrors the [react-vite-boilerplate](https://github.com/mattjaikaran/react-vite-boilerplate) architecture for Next.js.
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript (strict mode)
+- **Styling**: Tailwind CSS v4 + Shadcn/ui (new-york, zinc)
+- **State**: Zustand (client state) + TanStack Query (server state)
+- **Forms**: React Hook Form + Zod validation
+- **HTTP**: Axios with interceptors (JWT refresh, Django CSRF)
+- **Theme**: next-themes (light/dark/system)
+- **Icons**: Lucide React
+
+## Project Structure
+
+```
+├── app/                    # Next.js App Router
+│   ├── (main)/            # Public route group (about, contact, faq, etc.)
+│   ├── (auth)/            # Auth route group (login, register, magic-link)
+│   ├── dashboard/         # Protected dashboard routes
+│   ├── todos/             # Todo CRUD routes
+│   └── api/               # API routes (health check)
+├── components/
+│   ├── ui/                # Shadcn UI components
+│   ├── nav/               # Navbar, Footer
+│   ├── layouts/           # MainLayout, DashboardLayout, AuthLayout
+│   ├── shared/            # Hero, DataTable, FeatureFlag
+│   ├── charts/            # AreaChart, BarChart, DonutChart, StatCard
+│   └── providers/         # ThemeProvider, QueryProvider, AppProviders
+├── hooks/
+│   ├── api/               # Generic API hooks (useApiGet, useApiPost, etc.)
+│   ├── queries/           # Domain query hooks (useProfile, useTodos)
+│   ├── mutations/         # Domain mutation hooks (useLogin, useCreateTodo)
+│   └── utils/             # useDebounce, useLocalStorage, useMediaQuery
+├── lib/
+│   ├── api.ts             # Axios instance with interceptors
+│   ├── utils.ts           # cn() helper, generateId
+│   ├── django-integration.ts
+│   ├── api/               # Service layer
+│   │   ├── services/      # BaseService, AuthService, TodoService
+│   │   └── utils/         # Response handlers, query key factories
+│   ├── store/             # Zustand stores
+│   │   └── slices/        # auth, config, todo, ui slices
+│   └── utils/             # Array, async, format, object, storage, validation
+├── forms/                 # React Hook Form + Zod forms
+│   ├── auth/              # LoginForm, RegisterForm, MagicLinkForm
+│   └── todos/             # TodoForm
+├── types/                 # TypeScript type definitions
+├── config/                # App configuration (env vars, feature flags)
+└── middleware.ts           # Auth middleware stub
+```
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
+# Install dependencies
+bun install
+
+# Copy environment variables
+cp .env.example .env.local
+
+# Run development server
 bun dev
+
+# Build for production
+bun run build
+
+# Start production server
+bun start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Django Backend Integration
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This boilerplate is designed to work with a Django backend. API requests are proxied via `next.config.ts` rewrites:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```typescript
+// next.config.ts
+async rewrites() {
+  return [
+    {
+      source: '/api/v1/:path*',
+      destination: `${process.env.INTERNAL_API_URL}/api/v1/:path*`,
+    },
+  ];
+}
+```
 
-## Learn More
+Set `NEXT_PUBLIC_MODE=django-spa` for Django SPA mode with CSRF token support.
 
-To learn more about Next.js, take a look at the following resources:
+## Key Patterns
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### API Layer
+- Axios instance with JWT token refresh and Django CSRF support
+- `BaseService` abstract class for CRUD operations
+- Domain-specific services (AuthService, TodoService)
+- Query key factories for consistent cache management
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### State Management
+- **Zustand** for client state (auth, UI, config)
+- **TanStack Query** for server state (todos, profile)
+- Selector hooks for minimal re-renders
 
-## Deploy on Vercel
+### Feature Flags
+```tsx
+<FeatureFlag feature="enableTodos">
+  <TodoList />
+</FeatureFlag>
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Related
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [react-vite-boilerplate](https://github.com/mattjaikaran/react-vite-boilerplate) - React Vite version
+- [matt-stack](https://github.com/mattjaikaran/matt-stack) - CLI for scaffolding projects
+
+## License
+
+MIT
