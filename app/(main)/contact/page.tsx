@@ -1,5 +1,4 @@
-'use client';
-
+import type { Metadata } from 'next';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -12,12 +11,12 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
 
-export default function ContactPage() {
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-  };
+export const metadata: Metadata = {
+  title: 'Contact | Next.js Starter',
+  description: 'Get in touch with the Next.js Starter team.',
+};
 
+export default function ContactPage() {
   return (
     <div className="page-container">
       <div className="mx-auto max-w-4xl space-y-8">
@@ -34,7 +33,7 @@ export default function ContactPage() {
               <CardTitle>Send us a message</CardTitle>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form action="#" method="post" className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="firstName">First Name</Label>
@@ -78,8 +77,8 @@ export default function ContactPage() {
                 <CardTitle>Get in touch</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <Mail className="h-5 w-5 text-muted-foreground" />
+                <div className="flex items-center gap-x-3">
+                  <Mail className="size-5 text-muted-foreground" />
                   <div>
                     <p className="font-medium">Email</p>
                     <p className="text-sm text-muted-foreground">
@@ -90,14 +89,14 @@ export default function ContactPage() {
 
                 <div className="border-t pt-4">
                   <p className="mb-3 font-medium">Follow us</p>
-                  <div className="flex space-x-4">
+                  <div className="flex gap-x-4">
                     <a
                       href="https://github.com"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-muted-foreground transition-colors hover:text-primary"
                     >
-                      <Github className="h-5 w-5" />
+                      <Github className="size-5" />
                     </a>
                     <a
                       href="https://twitter.com"
@@ -105,7 +104,7 @@ export default function ContactPage() {
                       rel="noopener noreferrer"
                       className="text-muted-foreground transition-colors hover:text-primary"
                     >
-                      <Twitter className="h-5 w-5" />
+                      <Twitter className="size-5" />
                     </a>
                     <a
                       href="https://linkedin.com"
@@ -113,7 +112,7 @@ export default function ContactPage() {
                       rel="noopener noreferrer"
                       className="text-muted-foreground transition-colors hover:text-primary"
                     >
-                      <Linkedin className="h-5 w-5" />
+                      <Linkedin className="size-5" />
                     </a>
                   </div>
                 </div>

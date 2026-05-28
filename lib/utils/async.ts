@@ -8,12 +8,16 @@ export async function retry<T>(
 ): Promise<T> {
   const { maxAttempts = 3, delay = 1000 } = options;
   let lastError: unknown;
+  // Sequential retry by design — each attempt waits for the previous to fail
+  // eslint-disable-next-line react-doctor/async-await-in-loop
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
+      // eslint-disable-next-line react-doctor/async-await-in-loop, no-await-in-loop
       return await fn();
     } catch (error) {
       lastError = error;
       if (attempt < maxAttempts) {
+        // eslint-disable-next-line react-doctor/async-await-in-loop, no-await-in-loop
         await sleep(delay * attempt);
       }
     }

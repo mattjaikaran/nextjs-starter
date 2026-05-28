@@ -55,7 +55,7 @@ export function Footer({ className }: FooterProps) {
                 App Router, TypeScript, and the latest tools.
               </p>
             </div>
-            <div className="flex space-x-6">
+            <div className="flex gap-x-6">
               {navigation.social.map(item => (
                 <a
                   key={item.name}
@@ -65,7 +65,7 @@ export function Footer({ className }: FooterProps) {
                   className="text-muted-foreground transition-colors hover:text-primary"
                 >
                   <span className="sr-only">{item.name}</span>
-                  <item.icon className="h-6 w-6" />
+                  <item.icon className="size-6" />
                 </a>
               ))}
             </div>

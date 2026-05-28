@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
-  const router = useRouter();
+  const { push } = useRouter();
 
   return (
     <div className="page-container">
@@ -17,9 +17,9 @@ export default function LoginPage() {
           </CardHeader>
           <CardContent>
             <LoginForm
-              onSuccess={() => router.push('/dashboard')}
-              onSwitchToRegister={() => router.push('/register')}
-              onSwitchToMagicLink={() => router.push('/magic-link')}
+              onSuccess={() => push('/dashboard')}
+              onSwitchToRegister={() => push('/register')}
+              onSwitchToMagicLink={() => push('/magic-link')}
             />
           </CardContent>
         </Card>

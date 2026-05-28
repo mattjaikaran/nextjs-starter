@@ -147,6 +147,7 @@ function Image({
         />
       )}
       {showBlur && (
+        // eslint-disable-next-line react-doctor/nextjs-no-img-element
         <img
           src={blurDataURL}
           aria-hidden
@@ -155,6 +156,7 @@ function Image({
           style={{ objectFit }}
         />
       )}
+      {/* eslint-disable-next-line react-doctor/nextjs-no-img-element */}
       <img
         ref={imgCallbackRef}
         src={currentSrc}

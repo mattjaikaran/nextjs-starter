@@ -1,3 +1,10 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy | Next.js Starter',
+  description: 'Privacy policy for Next.js Starter.',
+};
+
 export default function PrivacyPage() {
   const lastUpdated = new Date().toLocaleDateString();
   return (

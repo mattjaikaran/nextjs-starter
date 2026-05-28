@@ -69,6 +69,7 @@ export const useApiPost = <
   url: string,
   options?: Omit<UseMutationOptions<TData, TError, TVariables>, 'mutationFn'>
 ) => {
+  // eslint-disable-next-line react-doctor/query-mutation-missing-invalidation
   return useMutation<TData, TError, TVariables>({
     mutationFn: async (data: TVariables) => {
       const response = await api.post<ApiResponse<TData>>(url, data);
@@ -92,6 +93,7 @@ export const useApiPut = <
   url: string,
   options?: Omit<UseMutationOptions<TData, TError, TVariables>, 'mutationFn'>
 ) => {
+  // eslint-disable-next-line react-doctor/query-mutation-missing-invalidation
   return useMutation<TData, TError, TVariables>({
     mutationFn: async (data: TVariables) => {
       const response = await api.put<ApiResponse<TData>>(url, data);
@@ -115,6 +117,7 @@ export const useApiPatch = <
   url: string,
   options?: Omit<UseMutationOptions<TData, TError, TVariables>, 'mutationFn'>
 ) => {
+  // eslint-disable-next-line react-doctor/query-mutation-missing-invalidation
   return useMutation<TData, TError, TVariables>({
     mutationFn: async (data: TVariables) => {
       const response = await api.patch<ApiResponse<TData>>(url, data);
@@ -134,6 +137,7 @@ export const useApiDelete = <TData = unknown, TError = Error>(
   url: string,
   options?: Omit<UseMutationOptions<TData, TError, void>, 'mutationFn'>
 ) => {
+  // eslint-disable-next-line react-doctor/query-mutation-missing-invalidation
   return useMutation<TData, TError, void>({
     mutationFn: async () => {
       const response = await api.delete<ApiResponse<TData>>(url);
@@ -153,6 +157,7 @@ export const useApiDeleteById = <TData = unknown, TError = Error>(
   baseUrl: string,
   options?: Omit<UseMutationOptions<TData, TError, string>, 'mutationFn'>
 ) => {
+  // eslint-disable-next-line react-doctor/query-mutation-missing-invalidation
   return useMutation<TData, TError, string>({
     mutationFn: async (id: string) => {
       const response = await api.delete<ApiResponse<TData>>(`${baseUrl}/${id}`);

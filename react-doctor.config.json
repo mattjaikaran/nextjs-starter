@@ -1,0 +1,7 @@
+{
+  "rules": {
+    "deslop/unused-export": "off",
+    "deslop/unused-file": "off",
+    "deslop/unused-dev-dependency": "off"
+  }
+}

@@ -1,5 +1,11 @@
+import type { Metadata } from 'next';
 import { Hero } from '@/components/shared/Hero';
 import { MainLayout } from '@/components/layouts/MainLayout';
+
+export const metadata: Metadata = {
+  title: 'Next.js Starter',
+  description: 'A modern, scalable Next.js application boilerplate.',
+};
 
 export default function HomePage() {
   return (

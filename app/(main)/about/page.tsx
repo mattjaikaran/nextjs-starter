@@ -1,3 +1,10 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'About | Next.js Starter',
+  description: 'Learn more about this Next.js boilerplate.',
+};
+
 export default function AboutPage() {
   return (
     <div className="page-container">

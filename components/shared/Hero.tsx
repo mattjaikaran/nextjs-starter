@@ -53,7 +53,7 @@ export function Hero({
             <Button size="lg" className="group" asChild>
               <Link href={primaryAction.href}>
                 {primaryAction.label}
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
 
@@ -63,7 +63,7 @@ export function Hero({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Github className="mr-2 h-4 w-4" />
+                <Github className="mr-2 size-4" />
                 {secondaryAction.label}
               </a>
             </Button>
@@ -72,7 +72,7 @@ export function Hero({
           {/* Feature highlights */}
           <div className="mx-auto grid max-w-4xl grid-cols-1 gap-8 pt-16 md:grid-cols-3">
             <div className="space-y-3 text-center">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+              <div className="mx-auto flex size-12 items-center justify-center rounded-lg bg-primary/10">
                 <span className="text-2xl">⚡</span>
               </div>
               <h3 className="text-lg font-semibold">Lightning Fast</h3>
@@ -83,7 +83,7 @@ export function Hero({
             </div>
 
             <div className="space-y-3 text-center">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+              <div className="mx-auto flex size-12 items-center justify-center rounded-lg bg-primary/10">
                 <span className="text-2xl">🎯</span>
               </div>
               <h3 className="text-lg font-semibold">Type Safe</h3>
@@ -94,7 +94,7 @@ export function Hero({
             </div>
 
             <div className="space-y-3 text-center">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+              <div className="mx-auto flex size-12 items-center justify-center rounded-lg bg-primary/10">
                 <span className="text-2xl">🎨</span>
               </div>
               <h3 className="text-lg font-semibold">Beautiful UI</h3>
@@ -110,7 +110,7 @@ export function Hero({
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <div className="h-[800px] w-[800px] rounded-full bg-gradient-to-r from-primary/20 to-secondary/20 opacity-20 blur-3xl" />
+          <div className="size-[800px] rounded-full bg-gradient-to-r from-primary/20 to-secondary/20 opacity-20 blur-3xl" />
         </div>
       </div>
     </div>

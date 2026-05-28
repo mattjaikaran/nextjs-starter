@@ -1,5 +1,4 @@
-'use client';
-
+import type { Metadata } from 'next';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -19,11 +18,14 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Bug, Lightbulb, MessageSquare, Star } from 'lucide-react';
 
+export const metadata: Metadata = {
+  title: 'Feedback | Next.js Starter',
+  description: 'Share your feedback and suggestions.',
+};
+
+
+
 export default function FeedbackPage() {
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-  };
 
   const feedbackTypes = [
     { value: 'bug', label: 'Bug Report', icon: Bug, color: 'text-red-500' },
@@ -61,7 +63,7 @@ export default function FeedbackPage() {
           {feedbackTypes.map(type => (
             <Card key={type.value} className="text-center">
               <CardContent className="pt-6">
-                <type.icon className={`mx-auto mb-3 h-8 w-8 ${type.color}`} />
+                <type.icon className={`mx-auto mb-3 size-8 ${type.color}`} />
                 <h3 className="font-semibold">{type.label}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">
                   {type.value === 'bug' &&
@@ -83,7 +85,7 @@ export default function FeedbackPage() {
             <CardTitle>Share Your Feedback</CardTitle>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form action="#" method="post" className="space-y-6">
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="name">Name (Optional)</Label>
@@ -104,8 +106,8 @@ export default function FeedbackPage() {
                   <SelectContent>
                     {feedbackTypes.map(type => (
                       <SelectItem key={type.value} value={type.value}>
-                        <div className="flex items-center space-x-2">
-                          <type.icon className={`h-4 w-4 ${type.color}`} />
+                        <div className="flex items-center gap-x-2">
+                          <type.icon className={`size-4 ${type.color}`} />
                           <span>{type.label}</span>
                         </div>
                       </SelectItem>
@@ -168,8 +170,8 @@ export default function FeedbackPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="flex items-start space-x-3 rounded-lg bg-muted/50 p-4">
-                <Lightbulb className="mt-0.5 h-5 w-5 text-yellow-500" />
+              <div className="flex items-start gap-x-3 rounded-lg bg-muted/50 p-4">
+                <Lightbulb className="mt-0.5 size-5 text-yellow-500" />
                 <div className="flex-1">
                   <p className="font-medium">Add dark mode toggle to navbar</p>
                   <p className="mt-1 text-sm text-muted-foreground">
@@ -182,8 +184,8 @@ export default function FeedbackPage() {
                 </div>
               </div>
 
-              <div className="flex items-start space-x-3 rounded-lg bg-muted/50 p-4">
-                <Bug className="mt-0.5 h-5 w-5 text-red-500" />
+              <div className="flex items-start gap-x-3 rounded-lg bg-muted/50 p-4">
+                <Bug className="mt-0.5 size-5 text-red-500" />
                 <div className="flex-1">
                   <p className="font-medium">
                     Form validation not working on mobile
@@ -198,8 +200,8 @@ export default function FeedbackPage() {
                 </div>
               </div>
 
-              <div className="flex items-start space-x-3 rounded-lg bg-muted/50 p-4">
-                <Star className="mt-0.5 h-5 w-5 text-blue-500" />
+              <div className="flex items-start gap-x-3 rounded-lg bg-muted/50 p-4">
+                <Star className="mt-0.5 size-5 text-blue-500" />
                 <div className="flex-1">
                   <p className="font-medium">Improve loading states</p>
                   <p className="mt-1 text-sm text-muted-foreground">

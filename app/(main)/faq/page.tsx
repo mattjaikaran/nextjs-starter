@@ -1,15 +1,13 @@
-'use client';
-
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ChevronDown, ChevronUp } from 'lucide-react';
-import { useState } from 'react';
+import { FAQItemCard } from '@/components/faq/FAQItemCard';
+import type { FAQItem } from '@/components/faq/FAQItemCard';
 
-interface FAQItem {
-  id: string;
-  question: string;
-  answer: string;
-}
+export const metadata: Metadata = {
+  title: 'FAQ | Next.js Starter',
+  description: 'Frequently asked questions about Next.js Starter.',
+};
 
 const faqData: FAQItem[] = [
   {
@@ -61,32 +59,6 @@ const faqData: FAQItem[] = [
       'Yes, you can export your data at any time from your account settings. We provide exports in common formats like JSON and CSV.',
   },
 ];
-
-function FAQItemCard({ item }: { item: FAQItem }) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div className="border-b border-border">
-      <button
-        type="button"
-        className="flex w-full items-center justify-between py-6 text-left"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <h3 className="text-lg font-medium">{item.question}</h3>
-        {isOpen ? (
-          <ChevronUp className="h-5 w-5 text-muted-foreground" />
-        ) : (
-          <ChevronDown className="h-5 w-5 text-muted-foreground" />
-        )}
-      </button>
-      {isOpen && (
-        <div className="pb-6">
-          <p className="text-muted-foreground">{item.answer}</p>
-        </div>
-      )}
-    </div>
-  );
-}
 
 export default function FAQPage() {
   return (

@@ -66,7 +66,7 @@ export function BarChart({
     return (
       <div className={cn('space-y-3', className)} style={{ minHeight: height }}>
         {bars.map((bar, i) => (
-          <div key={i} className="space-y-1">
+          <div key={bar.label} className="space-y-1">
             <div className="flex justify-between text-sm">
               <span className="max-w-[60%] truncate text-muted-foreground">
                 {bar.label}
@@ -102,7 +102,7 @@ export function BarChart({
       <div className="flex flex-1 items-end" style={{ gap }}>
         {bars.map((bar, i) => (
           <div
-            key={i}
+            key={bar.label}
             className="flex h-full flex-1 flex-col items-center justify-end"
           >
             {/* Value label */}
@@ -132,9 +132,9 @@ export function BarChart({
       {/* Labels */}
       {showLabels && (
         <div className="mt-2 flex" style={{ gap }}>
-          {bars.map((bar, i) => (
+          {bars.map((bar) => (
             <span
-              key={i}
+              key={bar.label}
               className="flex-1 truncate text-center text-xs text-muted-foreground"
             >
               {bar.label}

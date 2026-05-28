@@ -1,7 +1,7 @@
 import { api, handleApiResponse } from '@/lib/api';
 import type { ApiResponse, PaginatedResponse, QueryParams } from '@/types';
 import type { AxiosRequestConfig } from 'axios';
-import { handlePaginatedResponse } from '../utils';
+import { handlePaginatedResponse } from '../utils/response';
 
 export interface ServiceConfig {
   basePath: string;

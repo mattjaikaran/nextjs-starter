@@ -51,9 +51,10 @@ export const useDebouncedCallback = <T extends (...args: any[]) => unknown>(
 
   // Cleanup on unmount
   useEffect(() => {
+    const timeout = timeoutRef.current;
     return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
+      if (timeout) {
+        clearTimeout(timeout);
       }
     };
   }, []);
@@ -68,21 +69,7 @@ export const useDebounceWithLoading = <T>(
   value: T,
   delay: number = 500
 ): { debouncedValue: T; isDebouncing: boolean } => {
-  const [debouncedValue, setDebouncedValue] = useState<T>(value);
-  const [isDebouncing, setIsDebouncing] = useState(false);
-
-  useEffect(() => {
-    setIsDebouncing(true);
-
-    const timer = setTimeout(() => {
-      setDebouncedValue(value);
-      setIsDebouncing(false);
-    }, delay);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [value, delay]);
-
+  const debouncedValue = useDebounce(value, delay);
+  const isDebouncing = debouncedValue !== value;
   return { debouncedValue, isDebouncing };
 };

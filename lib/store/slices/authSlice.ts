@@ -33,7 +33,7 @@ export const useAuthStore = create<AuthSlice>((set, get) => ({
     if (typeof window !== 'undefined') {
       localStorage.setItem('auth_token', data.tokens.accessToken);
       localStorage.setItem('refresh_token', data.tokens.refreshToken);
-      localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('user:v1', JSON.stringify(data.user));
     }
     set({
       user: data.user,
@@ -48,7 +48,7 @@ export const useAuthStore = create<AuthSlice>((set, get) => ({
     if (typeof window !== 'undefined') {
       localStorage.setItem('auth_token', data.tokens.accessToken);
       localStorage.setItem('refresh_token', data.tokens.refreshToken);
-      localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('user:v1', JSON.stringify(data.user));
     }
     set({
       user: data.user,
@@ -63,7 +63,7 @@ export const useAuthStore = create<AuthSlice>((set, get) => ({
     if (typeof window !== 'undefined') {
       localStorage.removeItem('auth_token');
       localStorage.removeItem('refresh_token');
-      localStorage.removeItem('user');
+      localStorage.removeItem('user:v1');
     }
     set({
       user: null,
@@ -77,7 +77,7 @@ export const useAuthStore = create<AuthSlice>((set, get) => ({
   setUser: (user) => {
     set({ user });
     if (typeof window !== 'undefined') {
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('user:v1', JSON.stringify(user));
     }
   },
 
@@ -98,7 +98,7 @@ export const useAuthStore = create<AuthSlice>((set, get) => ({
     try {
       const token = localStorage.getItem('auth_token');
       const refreshToken = localStorage.getItem('refresh_token');
-      const userStr = localStorage.getItem('user');
+      const userStr = localStorage.getItem('user:v1');
 
       if (token && refreshToken && userStr) {
         const user = JSON.parse(userStr);
@@ -112,7 +112,7 @@ export const useAuthStore = create<AuthSlice>((set, get) => ({
       console.error('Failed to initialize auth:', error);
       localStorage.removeItem('auth_token');
       localStorage.removeItem('refresh_token');
-      localStorage.removeItem('user');
+      localStorage.removeItem('user:v1');
     }
   },
 }));

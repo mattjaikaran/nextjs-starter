@@ -59,9 +59,11 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
     <div className="min-h-screen bg-background">
       {/* Mobile sidebar backdrop */}
       {sidebarOpen && (
-        <div
+        <button
+          type="button"
           className="fixed inset-0 z-40 bg-black/50 lg:hidden"
           onClick={() => setSidebarOpen(false)}
+          aria-label="Close sidebar"
         />
       )}
 
@@ -75,7 +77,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         {/* Sidebar header */}
         <div className="flex h-16 items-center justify-between border-b px-4">
           <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+            <div className="flex size-8 items-center justify-center rounded-lg bg-primary">
               <span className="text-lg font-bold text-primary-foreground">
                 N
               </span>
@@ -88,7 +90,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             className="lg:hidden"
             onClick={() => setSidebarOpen(false)}
           >
-            <X className="h-5 w-5" />
+            <X className="size-5" />
           </Button>
         </div>
 
@@ -108,7 +110,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                 )}
                 onClick={() => setSidebarOpen(false)}
               >
-                <item.icon className="h-5 w-5" />
+                <item.icon className="size-5" />
                 {item.label}
               </Link>
             );
@@ -128,7 +130,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               className="lg:hidden"
               onClick={() => setSidebarOpen(true)}
             >
-              <Menu className="h-5 w-5" />
+              <Menu className="size-5" />
             </Button>
 
             {/* Search or breadcrumbs could go here */}
@@ -140,21 +142,21 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
               {/* Notifications */}
               <Button variant="ghost" size="icon" className="relative">
-                <Bell className="h-5 w-5" />
-                <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-rose-500" />
+                <Bell className="size-5" />
+                <span className="absolute right-1 top-1 size-2 rounded-full bg-rose-500" />
               </Button>
 
               {/* User menu */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="gap-2">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10">
-                      <User className="h-4 w-4 text-primary" />
+                    <div className="flex size-8 items-center justify-center rounded-full bg-primary/10">
+                      <User className="size-4 text-primary" />
                     </div>
                     <span className="hidden max-w-[100px] truncate sm:inline-block">
                       {user?.email || 'User'}
                     </span>
-                    <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                    <ChevronDown className="size-4 text-muted-foreground" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">
@@ -169,13 +171,13 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
                     <Link href="/dashboard/profile" className="cursor-pointer">
-                      <User className="mr-2 h-4 w-4" />
+                      <User className="mr-2 size-4" />
                       Profile
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link href="/dashboard/settings" className="cursor-pointer">
-                      <Settings className="mr-2 h-4 w-4" />
+                      <Settings className="mr-2 size-4" />
                       Settings
                     </Link>
                   </DropdownMenuItem>
@@ -184,7 +186,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                     className="cursor-pointer text-rose-500"
                     onClick={() => logout()}
                   >
-                    <LogOut className="mr-2 h-4 w-4" />
+                    <LogOut className="mr-2 size-4" />
                     Log out
                   </DropdownMenuItem>
                 </DropdownMenuContent>

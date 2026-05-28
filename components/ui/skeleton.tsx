@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils"
+import { SkeletonTableRow } from "@/components/ui/skeleton-table-row"
 
 function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
   return (
@@ -7,29 +8,6 @@ function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
       className={cn("bg-accent animate-pulse rounded-md", className)}
       {...props}
     />
-  )
-}
-
-/**
- * Skeleton for table rows
- */
-function SkeletonTableRow({
-  columns = 4,
-  className,
-}: {
-  columns?: number;
-  className?: string;
-}) {
-  return (
-    <div className={cn("flex items-center space-x-4 py-3", className)}>
-      {Array.from({ length: columns }).map((_, i) => (
-        <Skeleton
-          key={i}
-          className="h-4 flex-1"
-          style={{ maxWidth: i === 0 ? "200px" : undefined }}
-        />
-      ))}
-    </div>
   )
 }
 
@@ -48,7 +26,7 @@ function SkeletonTable({
   return (
     <div className={cn("space-y-1", className)}>
       {/* Header */}
-      <div className="flex items-center space-x-4 border-b py-3">
+      <div className="flex items-center gap-x-4 border-b py-3">
         {Array.from({ length: columns }).map((_, i) => (
           <Skeleton
             key={i}
@@ -65,4 +43,5 @@ function SkeletonTable({
   )
 }
 
-export { Skeleton, SkeletonTable, SkeletonTableRow }
+export { Skeleton, SkeletonTable }
+export { SkeletonTableRow } from "@/components/ui/skeleton-table-row"
