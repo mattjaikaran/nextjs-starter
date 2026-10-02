@@ -102,6 +102,13 @@ Set `NEXT_PUBLIC_MODE=django-spa` for Django SPA mode with CSRF token support.
 - **TanStack Query** for server state (todos, profile)
 - Selector hooks for minimal re-renders
 
+### Protected route redirects
+
+Keep client-store redirects in an effect, not in the render path.
+`app/todos/TodosContent.tsx` renders no protected content while signed out,
+then navigates to `/login` after the client mounts. This keeps `/todos`
+compatible with production prerendering.
+
 ### Feature Flags
 ```tsx
 <FeatureFlag feature="enableTodos">

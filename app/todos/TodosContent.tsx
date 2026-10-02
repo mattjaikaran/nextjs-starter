@@ -15,7 +15,7 @@ import type { Todo } from '@/types';
 import { CheckCircle2, Circle, Plus, Search, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export function TodosContent() {
   const { isAuthenticated } = useAuth();
@@ -26,8 +26,11 @@ export function TodosContent() {
     'all' | 'completed' | 'pending'
   >('all');
 
+  useEffect(() => {
+    if (!isAuthenticated) push('/login');
+  }, [isAuthenticated, push]);
+
   if (!isAuthenticated) {
-    push('/login');
     return null;
   }
 
