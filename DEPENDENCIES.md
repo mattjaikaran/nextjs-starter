@@ -5,6 +5,7 @@ listed here. Add a row when you add a dependency.
 
 | Package | Version |
 | --- | --- |
+| @hey-api/openapi-ts | 0.99.0 |
 | @hookform/resolvers | 5.2.2 |
 | @tailwindcss/postcss | 4 |
 | @tanstack/react-query | 5.90.21 |

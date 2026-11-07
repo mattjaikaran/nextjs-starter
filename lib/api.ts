@@ -1,5 +1,3 @@
-'use client';
-
 import { config, isDjangoSPA } from '@/config';
 import { getCSRFToken } from '@/lib/django-integration';
 import type { ApiError, ApiResponse, QueryParams } from '@/types';
@@ -33,7 +31,10 @@ const createApiInstance = (): AxiosInstance => {
 
   instance.interceptors.request.use(
     (requestConfig: InternalAxiosRequestConfig) => {
-      const token = localStorage.getItem(config.auth.tokenKey);
+      const token =
+        typeof window === 'undefined'
+          ? null
+          : localStorage.getItem(config.auth.tokenKey);
       if (token) {
         requestConfig.headers.Authorization = `Bearer ${token}`;
       }
@@ -69,9 +70,10 @@ const createApiInstance = (): AxiosInstance => {
         originalRequest._retry = true;
 
         try {
-          const refreshToken = localStorage.getItem(
-            config.auth.refreshTokenKey
-          );
+          const refreshToken =
+            typeof window === 'undefined'
+              ? null
+              : localStorage.getItem(config.auth.refreshTokenKey);
           if (refreshToken) {
             const refreshPath = isDjangoSPA()
               ? '/token/refresh'
@@ -101,10 +103,12 @@ const createApiInstance = (): AxiosInstance => {
             return instance(originalRequest);
           }
         } catch (refreshError) {
-          localStorage.removeItem(config.auth.tokenKey);
-          localStorage.removeItem(config.auth.refreshTokenKey);
-          localStorage.removeItem('user');
-          window.location.href = '/login';
+          if (typeof window !== 'undefined') {
+            localStorage.removeItem(config.auth.tokenKey);
+            localStorage.removeItem(config.auth.refreshTokenKey);
+            localStorage.removeItem('user');
+            window.location.href = '/login';
+          }
           return Promise.reject(refreshError);
         }
       }
