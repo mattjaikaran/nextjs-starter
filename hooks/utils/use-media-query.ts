@@ -5,32 +5,35 @@
  * Responsive design utilities
  */
 
-import { useEffect, useState } from 'react';
+import { useCallback, useSyncExternalStore } from 'react';
+
+const subscribeToQuery = (query: string, onChange: () => void) => {
+  if (typeof window === 'undefined') return () => {};
+
+  const mediaQuery = window.matchMedia(query);
+  mediaQuery.addEventListener('change', onChange);
+  return () => mediaQuery.removeEventListener('change', onChange);
+};
+
+const getQuerySnapshot = (query: string) => {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia(query).matches;
+};
 
 /**
  * Hook to check if a media query matches
  */
 export const useMediaQuery = (query: string): boolean => {
-  const [matches, setMatches] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return window.matchMedia(query).matches;
-  });
+  const subscribe = useCallback(
+    (onChange: () => void) => subscribeToQuery(query, onChange),
+    [query]
+  );
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const mediaQuery = window.matchMedia(query);
-    setMatches(mediaQuery.matches);
-
-    const handler = (event: MediaQueryListEvent) => {
-      setMatches(event.matches);
-    };
-
-    mediaQuery.addEventListener('change', handler);
-    return () => mediaQuery.removeEventListener('change', handler);
-  }, [query]);
-
-  return matches;
+  return useSyncExternalStore(
+    subscribe,
+    () => getQuerySnapshot(query),
+    () => false
+  );
 };
 
 /**

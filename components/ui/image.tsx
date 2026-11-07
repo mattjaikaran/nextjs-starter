@@ -13,6 +13,12 @@ type ImagePlaceholder = "skeleton" | "blur" | "none"
 type ImageRounded = false | "sm" | "md" | "lg" | "full"
 type LoadStatus = "loading" | "loaded" | "error"
 
+interface LoadState {
+  src: string
+  status: LoadStatus
+  useFallback: boolean
+}
+
 interface ImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, "placeholder"> {
   src: string
   alt: string
@@ -58,37 +64,42 @@ function Image({
   onError,
   ...props
 }: ImageProps) {
-  const [prevSrc, setPrevSrc] = useState(src)
-  const [useFallback, setUseFallback] = useState(false)
-  const [status, setStatus] = useState<LoadStatus>("loading")
+  const [loadState, setLoadState] = useState<LoadState>(() => ({
+    src,
+    status: "loading",
+    useFallback: false,
+  }))
 
-  // Adjust state during render when src changes (React's documented pattern);
-  // a ref would be read and written during render, which React forbids.
-  if (prevSrc !== src) {
-    setPrevSrc(src)
-    setUseFallback(false)
-    setStatus("loading")
-  }
+  // State is tied to the src it was recorded for: a new src renders as a
+  // fresh load without writing state during render.
+  const isCurrent = loadState.src === src
+  const status = isCurrent ? loadState.status : "loading"
+  const useFallback = isCurrent ? loadState.useFallback : false
 
   const currentSrc = useFallback && fallbackSrc ? fallbackSrc : src
 
-  const imgCallbackRef = useCallback((img: HTMLImageElement | null) => {
-    if (img?.complete) {
-      setStatus("loaded")
-    }
-  }, [])
+  const imgCallbackRef = useCallback(
+    (img: HTMLImageElement | null) => {
+      if (!img?.complete) return
+      setLoadState((prev) =>
+        prev.src === src && prev.status === "loading"
+          ? { ...prev, status: "loaded" }
+          : prev,
+      )
+    },
+    [src],
+  )
 
   function handleLoad(e: SyntheticEvent<HTMLImageElement>) {
-    setStatus("loaded")
+    setLoadState({ src, status: "loaded", useFallback })
     onLoad?.(e)
   }
 
   function handleError(e: SyntheticEvent<HTMLImageElement>) {
     if (fallbackSrc && !useFallback) {
-      setUseFallback(true)
-      setStatus("loading")
+      setLoadState({ src, status: "loading", useFallback: true })
     } else {
-      setStatus("error")
+      setLoadState({ src, status: "error", useFallback })
     }
     onError?.(e)
   }
