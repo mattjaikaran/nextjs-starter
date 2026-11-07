@@ -8,10 +8,12 @@
     "start": "next start",
     "lint": "eslint",
     "doctor": "npx react-doctor@latest",
+    "api:generate": "openapi-ts",
+    "api:check": "bun run scripts/api-check.ts",
     "check-conventions": "bun run scripts/check_conventions.ts",
     "check-dependencies": "bun run scripts/check_dependencies.ts",
     "check-agents": "bun run scripts/check_agent_docs.ts",
-    "gauntlet": "bun run lint && bun run check-conventions && bun run check-dependencies && bun run check-agents"
+    "gauntlet": "bun run api:check && bun run lint && bun run check-conventions && bun run check-dependencies && bun run check-agents"
   },
   "dependencies": {
     "@hookform/resolvers": "5.2.2",
@@ -34,6 +36,7 @@
     "zustand": "5.0.11"
   },
   "devDependencies": {
+    "@hey-api/openapi-ts": "0.99.0",
     "@tailwindcss/postcss": "4",
     "@types/node": "20",
     "@types/react": "19",

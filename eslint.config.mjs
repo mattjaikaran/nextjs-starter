@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Generator-owned code: byte-checked by api:check and type-checked.
+    "src/api/generated/**",
   ]),
 ]);
 
