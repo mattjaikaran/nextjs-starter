@@ -36,7 +36,7 @@ export const useLogin = (
   return useMutation<AuthResponse, Error, LoginCredentials>({
     mutationFn: authService.login,
     onSuccess: data => {
-      login(data as any);
+      login(data);
       queryClient.invalidateQueries({ queryKey: authKeys.all });
       addNotification({
         type: 'success',
@@ -71,7 +71,7 @@ export const useRegister = (
   return useMutation<AuthResponse, Error, RegisterCredentials>({
     mutationFn: authService.register,
     onSuccess: data => {
-      register(data as any);
+      register(data);
       queryClient.invalidateQueries({ queryKey: authKeys.all });
       addNotification({
         type: 'success',
@@ -137,7 +137,7 @@ export const useVerifyMagicLink = (
     mutationFn: (token: string) =>
       authService.verifyMagicLink(token),
     onSuccess: data => {
-      login(data as any);
+      login(data);
       queryClient.invalidateQueries({ queryKey: authKeys.all });
       addNotification({
         type: 'success',
