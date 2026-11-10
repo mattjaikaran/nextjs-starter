@@ -44,16 +44,15 @@ Smoke the app after a build: `bun start`, then
 These failures predate AGENTS.md. Do not add new violations; fix the ones in
 files you touch.
 
-- `bun run lint`: 33 problems (16 errors, 17 warnings). Errors come from
-  `components/ui/image.tsx` (refs mutated during render),
+- `bun run lint`: 24 problems (12 errors, 12 warnings). Errors come from
   `hooks/utils/use-media-query.ts` (`set-state-in-effect`),
   `hooks/mutations/use-auth-mutations.ts` (`no-explicit-any`), and
   `react-doctor/*` disable comments for a plugin the ESLint config does not
-  load.
+  load (`hooks/api/use-api.ts`, `lib/utils/async.ts`).
 - `bun run check-conventions`: 5 violations — `NO_ANY_CAST` ×3 in
   `hooks/mutations/use-auth-mutations.ts`, `NO_WINDOW_LOCATION` in
   `lib/api.ts`, `NO_USE_STATE_FOR_FORMS` in `forms/todos/TodoForm.tsx`.
-- `bun run doctor`: reports 32 existing issues (score 41/100) and exits 1.
+- `bun run doctor`: reports 31 existing issues (score 42/100) and exits 1.
   Treat findings as hypotheses and fix them in the files you touch; do not
   suppress rules to raise the score. `react-doctor.config.json` is still read
   but deprecated in favour of `doctor.config.json`.
