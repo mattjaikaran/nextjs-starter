@@ -1,6 +1,5 @@
 import {
   useState,
-  useRef,
   useCallback,
   type ReactNode,
   type SyntheticEvent,
@@ -59,12 +58,14 @@ function Image({
   onError,
   ...props
 }: ImageProps) {
-  const prevSrcRef = useRef(src)
+  const [prevSrc, setPrevSrc] = useState(src)
   const [useFallback, setUseFallback] = useState(false)
   const [status, setStatus] = useState<LoadStatus>("loading")
 
-  if (prevSrcRef.current !== src) {
-    prevSrcRef.current = src
+  // Adjust state during render when src changes (React's documented pattern);
+  // a ref would be read and written during render, which React forbids.
+  if (prevSrc !== src) {
+    setPrevSrc(src)
     setUseFallback(false)
     setStatus("loading")
   }
@@ -147,7 +148,8 @@ function Image({
         />
       )}
       {showBlur && (
-        // eslint-disable-next-line react-doctor/nextjs-no-img-element
+        // The wrapper needs the raw element: next/image cannot do these layout modes.
+        // eslint-disable-next-line @next/next/no-img-element
         <img
           src={blurDataURL}
           aria-hidden
@@ -156,7 +158,7 @@ function Image({
           style={{ objectFit }}
         />
       )}
-      {/* eslint-disable-next-line react-doctor/nextjs-no-img-element */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         ref={imgCallbackRef}
         src={currentSrc}
@@ -184,9 +186,10 @@ interface AvatarImageProps extends Omit<ImageProps, "layout" | "rounded" | "obje
   size?: number
 }
 
-function AvatarImage({ size = 40, width, height, ...props }: AvatarImageProps) {
+function AvatarImage({ size = 40, width, height, alt, ...props }: AvatarImageProps) {
   return (
     <Image
+      alt={alt}
       layout="fixed"
       rounded="full"
       objectFit="cover"
@@ -197,11 +200,13 @@ function AvatarImage({ size = 40, width, height, ...props }: AvatarImageProps) {
   )
 }
 
-function HeroImage(
-  props: Omit<ImageProps, "layout" | "aspectRatio" | "priority" | "objectFit">,
-) {
+function HeroImage({
+  alt,
+  ...props
+}: Omit<ImageProps, "layout" | "aspectRatio" | "priority" | "objectFit">) {
   return (
     <Image
+      alt={alt}
       layout="responsive"
       aspectRatio="16/9"
       priority
@@ -211,11 +216,13 @@ function HeroImage(
   )
 }
 
-function ThumbnailImage(
-  props: Omit<ImageProps, "layout" | "aspectRatio" | "rounded" | "objectFit">,
-) {
+function ThumbnailImage({
+  alt,
+  ...props
+}: Omit<ImageProps, "layout" | "aspectRatio" | "rounded" | "objectFit">) {
   return (
     <Image
+      alt={alt}
       layout="responsive"
       aspectRatio="16/9"
       rounded="md"
