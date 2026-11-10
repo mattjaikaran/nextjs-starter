@@ -10,7 +10,8 @@
     "doctor": "npx react-doctor@latest",
     "check-conventions": "bun run scripts/check_conventions.ts",
     "check-dependencies": "bun run scripts/check_dependencies.ts",
-    "gauntlet": "bun run lint && bun run check-conventions && bun run check-dependencies"
+    "check-agents": "bun run scripts/check_agent_docs.ts",
+    "gauntlet": "bun run lint && bun run check-conventions && bun run check-dependencies && bun run check-agents"
   },
   "dependencies": {
     "@hookform/resolvers": "5.2.2",
