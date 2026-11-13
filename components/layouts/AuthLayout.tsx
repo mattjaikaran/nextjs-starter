@@ -1,5 +1,5 @@
-import { Navbar } from '@/components/nav/Navbar';
-import { Footer } from '@/components/nav/Footer';
+import { Navbar } from "@/components/nav/Navbar";
+import { Footer } from "@/components/nav/Footer";
 
 interface AuthLayoutProps {
   children: React.ReactNode;

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useState } from 'react';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useState } from "react";
 
 interface QueryProviderProps {
   children: React.ReactNode;
@@ -15,7 +15,7 @@ interface ApiErrorWithResponse {
 }
 
 function isApiError(error: unknown): error is ApiErrorWithResponse {
-  return typeof error === 'object' && error !== null && 'response' in error;
+  return typeof error === "object" && error !== null && "response" in error;
 }
 
 export function QueryProvider({ children }: QueryProviderProps) {
@@ -41,7 +41,7 @@ export function QueryProvider({ children }: QueryProviderProps) {
               // Retry up to 3 times for other errors
               return failureCount < 3;
             },
-            retryDelay: attemptIndex =>
+            retryDelay: (attemptIndex) =>
               Math.min(1000 * 2 ** attemptIndex, 30000),
           },
           mutations: {
@@ -58,13 +58,13 @@ export function QueryProvider({ children }: QueryProviderProps) {
             },
           },
         },
-      })
+      }),
   );
 
   return (
     <QueryClientProvider client={queryClient}>
       {children}
-      {process.env.NODE_ENV === 'development' && (
+      {process.env.NODE_ENV === "development" && (
         <ReactQueryDevtools initialIsOpen={false} />
       )}
     </QueryClientProvider>

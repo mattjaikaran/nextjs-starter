@@ -8,15 +8,15 @@
  * scratch directory.
  */
 
-import { createClient } from '@hey-api/openapi-ts';
-import { mkdir, readdir, readFile, rm } from 'node:fs/promises';
-import { join, relative } from 'node:path';
-import config from '../openapi-ts.config';
+import { createClient } from "@hey-api/openapi-ts";
+import { mkdir, readdir, readFile, rm } from "node:fs/promises";
+import { join, relative } from "node:path";
+import config from "../openapi-ts.config";
 
-const COMMITTED = 'src/api/generated';
+const COMMITTED = "src/api/generated";
 // Same depth as the committed output, so the generated runtime-config import
 // keeps the same relative path and only real drift shows up.
-const SCRATCH = 'src/api/.generated-check';
+const SCRATCH = "src/api/.generated-check";
 
 async function files(root: string, directory = root): Promise<string[]> {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -24,9 +24,10 @@ async function files(root: string, directory = root): Promise<string[]> {
     entries.map(async (entry) => {
       const path = join(directory, entry.name);
       if (entry.isDirectory()) return files(root, path);
-      if (!entry.isFile()) throw new Error(`Unexpected generated entry: ${path}`);
+      if (!entry.isFile())
+        throw new Error(`Unexpected generated entry: ${path}`);
       return [relative(root, path)];
-    })
+    }),
   );
   return paths.flat().sort();
 }
@@ -62,10 +63,10 @@ try {
 
   if (drift.length) {
     throw new Error(
-      `Generated API drift. Run bun run api:generate.\n${drift.join('\n')}`
+      `Generated API drift. Run bun run api:generate.\n${drift.join("\n")}`,
     );
   }
-  console.log('Generated API matches the contract (all paths and bytes).');
+  console.log("Generated API matches the contract (all paths and bytes).");
 } finally {
   await rm(SCRATCH, { recursive: true, force: true });
 }

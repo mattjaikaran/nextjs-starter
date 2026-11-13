@@ -21,20 +21,25 @@ Package manager: **bun** (`bun.lock`). Do not use npm or yarn.
 
 Run from the repo root with bun.
 
-| Purpose | Command |
-| --- | --- |
-| Install | `bun install --frozen-lockfile` |
-| Dev server (http://localhost:3000) | `bun run dev` |
-| Typecheck + production build | `bun run build` |
-| Production server | `bun start` |
-| Lint | `bun run lint` |
-| E2E journeys (Playwright) | `bun run test:e2e` |
-| Convention gate | `bun run check-conventions` |
-| Dependency gate | `bun run check-dependencies` |
-| Agent docs gate | `bun run check-agents` |
-| Generated API drift | `bun run api:check` |
-| All static gates | `bun run gauntlet` |
-| React diagnostics (downloads the tool) | `bun run doctor` |
+| Purpose                            | Command                         |
+| ---------------------------------- | ------------------------------- |
+| Install                            | `bun install --frozen-lockfile` |
+| Dev server (http://localhost:3000) | `bun run dev`                   |
+| Typecheck + production build       | `bun run build`                 |
+| Production server                  | `bun start`                     |
+| Lint (Oxlint)                      | `bun run lint`                  |
+| Lint, warnings denied              | `bun run lint:strict`           |
+| Fix lint findings                  | `bun run lint:fix`              |
+| Format (Oxfmt)                     | `bun run format`                |
+| Format check                       | `bun run format:check`          |
+| Typecheck                          | `bun run typecheck`             |
+| E2E journeys (Playwright)          | `bun run test:e2e`              |
+| Convention gate                    | `bun run check-conventions`     |
+| Dependency gate                    | `bun run check-dependencies`    |
+| Agent docs gate                    | `bun run check-agents`          |
+| Generated API drift                | `bun run api:check`             |
+| All static gates                   | `bun run gauntlet`              |
+| React diagnostics                  | `bun run doctor`                |
 
 Smoke the app after a build: `bun start`, then
 `curl -s http://localhost:3000/api/health` — expects `{"status":"ok",...}`.
@@ -43,22 +48,22 @@ Smoke the app after a build: `bun start`, then
 
 ### Known failing checks
 
-These predate this file. Do not add new violations; fix the ones in files you
-touch.
+These failures predate the Oxlint/Oxfmt switch. Do not add new violations; fix
+the ones in files you touch.
 
-- `bun run lint`: 0 errors, 10 warnings, exits 0. Warnings come from
-  `react-hooks/incompatible-library` in `components/shared/DataTable.tsx`,
-  unused variables in `lib/store/` and `middleware.ts`, and similar.
 - `bun run check-conventions`: 2 violations — `NO_WINDOW_LOCATION` in
-  `lib/api.ts`, `NO_USE_STATE_FOR_FORMS` in `forms/todos/TodoForm.tsx`.
-- `bun run doctor`: reports 34 issues (score 44/100) and exits 1. Treat
+  `lib/api.ts` and `NO_USE_STATE_FOR_FORMS` in `forms/todos/TodoForm.tsx`.
+- `bun run doctor`: pinned react-doctor 0.2.9 reports 12 issues on this tree and
+  can stall after printing its report, so CI bounds and ignores it. Treat
   findings as hypotheses and fix them in the files you touch; do not suppress
   rules to raise the score. `react-doctor.config.json` is still read but
   deprecated in favour of `doctor.config.json`.
 - `bun run gauntlet` stops at `check-conventions` until those two violations
-  are fixed; `api:check` and `lint` pass before it.
+  are fixed; `api:check`, `format:check`, `lint:strict`, and `typecheck` pass
+  before it.
 
-`bun install --frozen-lockfile`, `bun run build`,
+`bun install --frozen-lockfile`, `bun run lint`, `bun run lint:strict`,
+`bun run format:check`, `bun run typecheck`, `bun run build`,
 `bun run check-dependencies`, and `bun run check-agents` pass on a clean
 checkout.
 
@@ -67,6 +72,10 @@ checkout.
 TypeScript is strict. No `as any`, `@ts-ignore`, or `console.log` in source
 files.
 
+- **Lint and format**: Oxlint reads `.oxlintrc.json` and Oxfmt reads
+  `.oxfmtrc.json`; there is no ESLint or Prettier pipeline. Replicate a former
+  ESLint rule in `.oxlintrc.json` rather than adding one of those packages
+  back.
 - **Routing**: App Router under `app/`. Route files (`page`, `layout`,
   `error`, `loading`, `not-found`) use default exports; components and forms
   use named exports.
@@ -83,8 +92,9 @@ files.
 - **Forms**: `react-hook-form` + `zod`; never `useState` for form state.
 - **UI**: Shadcn primitives live in `components/ui` (add with
   `bunx shadcn add <name>`); variant maps belong in `*-variants.ts`
-  files; compose classes with `cn()`. `components/ui` is vendored and excluded
-  from the convention checker, so keep edits there minimal and purposeful.
+  files; compose classes with `cn()`. `components/ui` is vendored, excluded
+  from the convention checker and skipped by Oxfmt, so keep edits there
+  minimal and purposeful.
 - **Size**: a component file over 300 lines is a violation; split it.
 - **Dependencies**: exact versions only; the policy lives in
   [DEPENDENCIES.md](DEPENDENCIES.md). Add a row there with every dependency.
@@ -92,7 +102,9 @@ files.
 The mechanical rules are enforced by
 [scripts/check_conventions.ts](scripts/check_conventions.ts) and
 [scripts/check_dependencies.ts](scripts/check_dependencies.ts) through
-`bun run gauntlet`. [.github/workflows/agents.yml](.github/workflows/agents.yml)
+`bun run gauntlet`. [.github/workflows/ci.yml](.github/workflows/ci.yml) runs
+Oxlint, the Oxfmt check, typecheck, build, and React doctor.
+[.github/workflows/agents.yml](.github/workflows/agents.yml)
 fails when this file is missing or a relative link in it does not resolve.
 
 ## Generated API client
@@ -115,9 +127,9 @@ fails when this file is missing or a relative link in it does not resolve.
 There is no unit-test runner in this repo, and none should be added.
 
 1. `bun run build` — typecheck and prerender the static routes.
-2. `bun run gauntlet` — lint, conventions, dependencies, generated API, agent
-   docs. Fix violations in the files you changed; leave the documented
-   pre-existing failures alone.
+2. `bun run gauntlet` — generated API drift, format check, lint, typecheck,
+   conventions, dependencies, agent docs. Fix violations in the files you
+   changed; leave the documented pre-existing failures alone.
 3. Run the affected route with `bun run dev` or `bun start` and exercise it,
    including `/api/health` after a build.
 

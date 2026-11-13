@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
 /**
  * Bar Chart Component
  * A flexible bar chart using SVG for data visualization
  */
 
-import { cn } from '@/lib/utils';
-import { useMemo } from 'react';
+import { cn } from "@/lib/utils";
+import { useMemo } from "react";
 
 export interface BarChartDataPoint {
   label: string;
@@ -30,7 +30,7 @@ export function BarChart({
   data,
   height = 200,
   className,
-  color = 'hsl(var(--primary))',
+  color = "hsl(var(--primary))",
   showLabels = true,
   showValues = true,
   horizontal = false,
@@ -40,7 +40,7 @@ export function BarChart({
   const { bars } = useMemo(() => {
     if (data.length === 0) return { bars: [], maxValue: 0 };
 
-    const max = Math.max(...data.map(d => d.value));
+    const max = Math.max(...data.map((d) => d.value));
 
     const barsData = data.map((d, i) => ({
       ...d,
@@ -54,7 +54,7 @@ export function BarChart({
   if (data.length === 0) {
     return (
       <div
-        className={cn('flex items-center justify-center', className)}
+        className={cn("flex items-center justify-center", className)}
         style={{ height }}
       >
         <p className="text-sm text-muted-foreground">No data available</p>
@@ -64,7 +64,7 @@ export function BarChart({
 
   if (horizontal) {
     return (
-      <div className={cn('space-y-3', className)} style={{ minHeight: height }}>
+      <div className={cn("space-y-3", className)} style={{ minHeight: height }}>
         {bars.map((bar, i) => (
           <div key={bar.label} className="space-y-1">
             <div className="flex justify-between text-sm">
@@ -80,8 +80,8 @@ export function BarChart({
             <div className="h-3 overflow-hidden rounded-full bg-muted">
               <div
                 className={cn(
-                  'h-full rounded-full transition-all duration-500',
-                  animate && 'animate-in slide-in-from-left'
+                  "h-full rounded-full transition-all duration-500",
+                  animate && "animate-in slide-in-from-left",
                 )}
                 style={{
                   width: `${bar.percentage}%`,
@@ -97,7 +97,7 @@ export function BarChart({
   }
 
   return (
-    <div className={cn('flex flex-col', className)} style={{ height }}>
+    <div className={cn("flex flex-col", className)} style={{ height }}>
       {/* Chart area */}
       <div className="flex flex-1 items-end" style={{ gap }}>
         {bars.map((bar, i) => (
@@ -115,8 +115,8 @@ export function BarChart({
             {/* Bar */}
             <div
               className={cn(
-                'w-full rounded-t-md transition-all duration-500',
-                animate && 'animate-in slide-in-from-bottom'
+                "w-full rounded-t-md transition-all duration-500",
+                animate && "animate-in slide-in-from-bottom",
               )}
               style={{
                 height: `${bar.percentage}%`,

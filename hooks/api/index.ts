@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 /**
  * API Hooks Exports
@@ -16,11 +16,11 @@ export {
   useApiQuery,
   useInvalidate,
   usePrefetch,
-} from './use-api';
+} from "./use-api";
 
 export {
   useOptimisticAdd,
   useOptimisticMutation,
   useOptimisticRemove,
   useOptimisticUpdate,
-} from './use-optimistic';
+} from "./use-optimistic";

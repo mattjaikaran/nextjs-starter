@@ -1,12 +1,17 @@
-import type { CreateTodoRequest, QueryParams, Todo, UpdateTodoRequest } from '@/types';
-import { createQueryKeyFactory } from '../utils/query-keys';
-import { BaseService } from './base.service';
+import type {
+  CreateTodoRequest,
+  QueryParams,
+  Todo,
+  UpdateTodoRequest,
+} from "@/types";
+import { createQueryKeyFactory } from "../utils/query-keys";
+import { BaseService } from "./base.service";
 
 export const todoKeys = {
-  ...createQueryKeyFactory('todos'),
-  stats: () => ['todos', 'stats'] as const,
-  byPriority: (priority: string) => ['todos', 'priority', priority] as const,
-  byStatus: (completed: boolean) => ['todos', 'status', completed] as const,
+  ...createQueryKeyFactory("todos"),
+  stats: () => ["todos", "stats"] as const,
+  byPriority: (priority: string) => ["todos", "priority", priority] as const,
+  byStatus: (completed: boolean) => ["todos", "status", completed] as const,
 };
 
 export interface TodoStats {
@@ -22,9 +27,13 @@ export interface BulkDeleteResponse {
   deletedCount: number;
 }
 
-class TodoServiceClass extends BaseService<Todo, CreateTodoRequest, UpdateTodoRequest> {
+class TodoServiceClass extends BaseService<
+  Todo,
+  CreateTodoRequest,
+  UpdateTodoRequest
+> {
   constructor() {
-    super({ basePath: '/todos' });
+    super({ basePath: "/todos" });
   }
 
   async toggle(id: string): Promise<Todo> {
@@ -32,20 +41,20 @@ class TodoServiceClass extends BaseService<Todo, CreateTodoRequest, UpdateTodoRe
   }
 
   async bulkUpdate(ids: string[], updates: UpdateTodoRequest): Promise<Todo[]> {
-    return this.patch<Todo[]>('/bulk', { ids, updates });
+    return this.patch<Todo[]>("/bulk", { ids, updates });
   }
 
   async bulkDelete(ids: string[]): Promise<BulkDeleteResponse> {
-    return this.post<BulkDeleteResponse>('/bulk-delete', { ids });
+    return this.post<BulkDeleteResponse>("/bulk-delete", { ids });
   }
 
   async getStats(): Promise<TodoStats> {
-    return this.get<TodoStats>('/stats');
+    return this.get<TodoStats>("/stats");
   }
 
   async getByPriority(
-    priority: 'low' | 'medium' | 'high',
-    params?: Omit<QueryParams, 'filters'>
+    priority: "low" | "medium" | "high",
+    params?: Omit<QueryParams, "filters">,
   ): Promise<Todo[]> {
     const response = await this.getAll({ ...params, filters: { priority } });
     return response.data;
@@ -53,7 +62,7 @@ class TodoServiceClass extends BaseService<Todo, CreateTodoRequest, UpdateTodoRe
 
   async getByStatus(
     completed: boolean,
-    params?: Omit<QueryParams, 'filters'>
+    params?: Omit<QueryParams, "filters">,
   ): Promise<Todo[]> {
     const response = await this.getAll({ ...params, filters: { completed } });
     return response.data;
@@ -65,15 +74,20 @@ class TodoServiceClass extends BaseService<Todo, CreateTodoRequest, UpdateTodoRe
   }
 
   async getOverdue(): Promise<Todo[]> {
-    return this.get<Todo[]>('/overdue');
+    return this.get<Todo[]>("/overdue");
   }
 
   async getDueToday(): Promise<Todo[]> {
-    return this.get<Todo[]>('/due-today');
+    return this.get<Todo[]>("/due-today");
   }
 
-  async archiveCompleted(): Promise<{ message: string; archivedCount: number }> {
-    return this.post<{ message: string; archivedCount: number }>('/archive-completed');
+  async archiveCompleted(): Promise<{
+    message: string;
+    archivedCount: number;
+  }> {
+    return this.post<{ message: string; archivedCount: number }>(
+      "/archive-completed",
+    );
   }
 }
 

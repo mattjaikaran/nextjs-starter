@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
 /**
  * Generic API Hooks
  * Provides type-safe hooks for common API operations using React Query
  */
 
-import { api } from '@/lib/api';
-import type { ApiResponse, PaginatedResponse } from '@/types';
+import { api } from "@/lib/api";
+import type { ApiResponse, PaginatedResponse } from "@/types";
 import {
   InfiniteData,
   useInfiniteQuery,
@@ -15,21 +15,21 @@ import {
   useQuery,
   useQueryClient,
   UseQueryOptions,
-} from '@tanstack/react-query';
+} from "@tanstack/react-query";
 
 /**
  * Generic GET hook for fetching data
  */
 export const useApiGet = <TData = unknown, TError = Error>(
   url: string,
-  options?: Omit<UseQueryOptions<TData, TError>, 'queryKey' | 'queryFn'>
+  options?: Omit<UseQueryOptions<TData, TError>, "queryKey" | "queryFn">,
 ) => {
   return useQuery<TData, TError>({
     queryKey: [url],
     queryFn: async () => {
       const response = await api.get<ApiResponse<TData>>(url);
       if (response.data.data === undefined) {
-        throw new Error('No data in response');
+        throw new Error("No data in response");
       }
       return response.data.data;
     },
@@ -43,14 +43,14 @@ export const useApiGet = <TData = unknown, TError = Error>(
 export const useApiQuery = <TData = unknown, TError = Error>(
   queryKey: readonly unknown[],
   url: string,
-  options?: Omit<UseQueryOptions<TData, TError>, 'queryKey' | 'queryFn'>
+  options?: Omit<UseQueryOptions<TData, TError>, "queryKey" | "queryFn">,
 ) => {
   return useQuery<TData, TError>({
     queryKey,
     queryFn: async () => {
       const response = await api.get<ApiResponse<TData>>(url);
       if (response.data.data === undefined) {
-        throw new Error('No data in response');
+        throw new Error("No data in response");
       }
       return response.data.data;
     },
@@ -67,13 +67,13 @@ export const useApiPost = <
   TVariables = unknown,
 >(
   url: string,
-  options?: Omit<UseMutationOptions<TData, TError, TVariables>, 'mutationFn'>
+  options?: Omit<UseMutationOptions<TData, TError, TVariables>, "mutationFn">,
 ) => {
   return useMutation<TData, TError, TVariables>({
     mutationFn: async (data: TVariables) => {
       const response = await api.post<ApiResponse<TData>>(url, data);
       if (response.data.data === undefined) {
-        throw new Error('No data in response');
+        throw new Error("No data in response");
       }
       return response.data.data;
     },
@@ -90,13 +90,13 @@ export const useApiPut = <
   TVariables = unknown,
 >(
   url: string,
-  options?: Omit<UseMutationOptions<TData, TError, TVariables>, 'mutationFn'>
+  options?: Omit<UseMutationOptions<TData, TError, TVariables>, "mutationFn">,
 ) => {
   return useMutation<TData, TError, TVariables>({
     mutationFn: async (data: TVariables) => {
       const response = await api.put<ApiResponse<TData>>(url, data);
       if (response.data.data === undefined) {
-        throw new Error('No data in response');
+        throw new Error("No data in response");
       }
       return response.data.data;
     },
@@ -113,13 +113,13 @@ export const useApiPatch = <
   TVariables = unknown,
 >(
   url: string,
-  options?: Omit<UseMutationOptions<TData, TError, TVariables>, 'mutationFn'>
+  options?: Omit<UseMutationOptions<TData, TError, TVariables>, "mutationFn">,
 ) => {
   return useMutation<TData, TError, TVariables>({
     mutationFn: async (data: TVariables) => {
       const response = await api.patch<ApiResponse<TData>>(url, data);
       if (response.data.data === undefined) {
-        throw new Error('No data in response');
+        throw new Error("No data in response");
       }
       return response.data.data;
     },
@@ -132,13 +132,13 @@ export const useApiPatch = <
  */
 export const useApiDelete = <TData = unknown, TError = Error>(
   url: string,
-  options?: Omit<UseMutationOptions<TData, TError, void>, 'mutationFn'>
+  options?: Omit<UseMutationOptions<TData, TError, void>, "mutationFn">,
 ) => {
   return useMutation<TData, TError, void>({
     mutationFn: async () => {
       const response = await api.delete<ApiResponse<TData>>(url);
       if (response.data.data === undefined) {
-        throw new Error('No data in response');
+        throw new Error("No data in response");
       }
       return response.data.data;
     },
@@ -151,13 +151,13 @@ export const useApiDelete = <TData = unknown, TError = Error>(
  */
 export const useApiDeleteById = <TData = unknown, TError = Error>(
   baseUrl: string,
-  options?: Omit<UseMutationOptions<TData, TError, string>, 'mutationFn'>
+  options?: Omit<UseMutationOptions<TData, TError, string>, "mutationFn">,
 ) => {
   return useMutation<TData, TError, string>({
     mutationFn: async (id: string) => {
       const response = await api.delete<ApiResponse<TData>>(`${baseUrl}/${id}`);
       if (response.data.data === undefined) {
-        throw new Error('No data in response');
+        throw new Error("No data in response");
       }
       return response.data.data;
     },
@@ -170,7 +170,7 @@ export const useApiDeleteById = <TData = unknown, TError = Error>(
  */
 export const useApiInfinite = <TData = unknown, TError = Error>(
   queryKey: readonly unknown[],
-  url: string
+  url: string,
 ) => {
   return useInfiniteQuery<
     PaginatedResponse<TData>,
@@ -185,15 +185,15 @@ export const useApiInfinite = <TData = unknown, TError = Error>(
         url,
         {
           params: { page: pageParam },
-        }
+        },
       );
       if (response.data.data === undefined) {
-        throw new Error('No data in response');
+        throw new Error("No data in response");
       }
       return response.data.data;
     },
     initialPageParam: 1,
-    getNextPageParam: lastPage => {
+    getNextPageParam: (lastPage) => {
       const { page, totalPages } = lastPage.pagination;
       return page < totalPages ? page + 1 : undefined;
     },
@@ -209,7 +209,7 @@ export const usePrefetch = () => {
   return {
     prefetch: async <TData>(
       queryKey: readonly unknown[],
-      queryFn: () => Promise<TData>
+      queryFn: () => Promise<TData>,
     ) => {
       await queryClient.prefetchQuery({
         queryKey,

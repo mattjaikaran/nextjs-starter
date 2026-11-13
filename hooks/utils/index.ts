@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 /**
  * Utility Hooks Exports
@@ -8,9 +8,9 @@ export {
   useDebounce,
   useDebouncedCallback,
   useDebounceWithLoading,
-} from './use-debounce';
+} from "./use-debounce";
 
-export { useLocalStorage, useSessionStorage } from './use-local-storage';
+export { useLocalStorage, useSessionStorage } from "./use-local-storage";
 
 export {
   useBreakpoint,
@@ -21,4 +21,4 @@ export {
   useMediaQuery,
   usePrefersDarkMode,
   usePrefersReducedMotion,
-} from './use-media-query';
+} from "./use-media-query";

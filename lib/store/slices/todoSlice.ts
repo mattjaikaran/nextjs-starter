@@ -1,8 +1,14 @@
-'use client';
+"use client";
 
-import { generateId } from '@/lib/utils';
-import type { CreateTodoRequest, Todo, TodoFilters, TodoState, UpdateTodoRequest } from '@/types';
-import { create } from 'zustand';
+import { generateId } from "@/lib/utils";
+import type {
+  CreateTodoRequest,
+  Todo,
+  TodoFilters,
+  TodoState,
+  UpdateTodoRequest,
+} from "@/types";
+import { create } from "zustand";
 
 export interface TodoSlice extends TodoState {
   fetchTodos: () => Promise<void>;
@@ -18,47 +24,48 @@ export interface TodoSlice extends TodoState {
 }
 
 const initialFilters: TodoFilters = {
-  search: '',
-  priority: 'all',
-  completed: 'all',
+  search: "",
+  priority: "all",
+  completed: "all",
   tags: [],
 };
 
 const mockTodos: Todo[] = [
   {
-    id: '1',
-    title: 'Complete project setup',
-    description: 'Set up the Next.js boilerplate with all necessary configurations',
+    id: "1",
+    title: "Complete project setup",
+    description:
+      "Set up the Next.js boilerplate with all necessary configurations",
     completed: false,
-    priority: 'high',
-    dueDate: '2026-12-31',
-    tags: ['development', 'setup'],
-    userId: '1',
-    createdAt: '2026-01-01T00:00:00Z',
-    updatedAt: '2026-01-01T00:00:00Z',
+    priority: "high",
+    dueDate: "2026-12-31",
+    tags: ["development", "setup"],
+    userId: "1",
+    createdAt: "2026-01-01T00:00:00Z",
+    updatedAt: "2026-01-01T00:00:00Z",
   },
   {
-    id: '2',
-    title: 'Write documentation',
-    description: 'Create comprehensive documentation for the boilerplate',
+    id: "2",
+    title: "Write documentation",
+    description: "Create comprehensive documentation for the boilerplate",
     completed: false,
-    priority: 'medium',
-    dueDate: '2026-12-25',
-    tags: ['documentation'],
-    userId: '1',
-    createdAt: '2026-01-02T00:00:00Z',
-    updatedAt: '2026-01-02T00:00:00Z',
+    priority: "medium",
+    dueDate: "2026-12-25",
+    tags: ["documentation"],
+    userId: "1",
+    createdAt: "2026-01-02T00:00:00Z",
+    updatedAt: "2026-01-02T00:00:00Z",
   },
   {
-    id: '3',
-    title: 'Add unit tests',
-    description: 'Implement unit tests for all components and utilities',
+    id: "3",
+    title: "Add unit tests",
+    description: "Implement unit tests for all components and utilities",
     completed: true,
-    priority: 'high',
-    tags: ['testing'],
-    userId: '1',
-    createdAt: '2026-01-03T00:00:00Z',
-    updatedAt: '2026-01-03T00:00:00Z',
+    priority: "high",
+    tags: ["testing"],
+    userId: "1",
+    createdAt: "2026-01-03T00:00:00Z",
+    updatedAt: "2026-01-03T00:00:00Z",
   },
 ];
 
@@ -76,7 +83,7 @@ export const useTodoStore = create<TodoSlice>((set, get) => ({
     } catch (error) {
       set({
         isLoading: false,
-        error: error instanceof Error ? error.message : 'Failed to fetch todos',
+        error: error instanceof Error ? error.message : "Failed to fetch todos",
       });
     }
   },
@@ -90,7 +97,7 @@ export const useTodoStore = create<TodoSlice>((set, get) => ({
         ...todoData,
         completed: false,
         tags: todoData.tags || [],
-        userId: '1',
+        userId: "1",
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       };
@@ -99,7 +106,7 @@ export const useTodoStore = create<TodoSlice>((set, get) => ({
     } catch (error) {
       set({
         isLoading: false,
-        error: error instanceof Error ? error.message : 'Failed to create todo',
+        error: error instanceof Error ? error.message : "Failed to create todo",
       });
     }
   },
@@ -111,14 +118,16 @@ export const useTodoStore = create<TodoSlice>((set, get) => ({
       const { todos } = get();
       set({
         todos: todos.map((t) =>
-          t.id === id ? { ...t, ...updates, updatedAt: new Date().toISOString() } : t
+          t.id === id
+            ? { ...t, ...updates, updatedAt: new Date().toISOString() }
+            : t,
         ),
         isLoading: false,
       });
     } catch (error) {
       set({
         isLoading: false,
-        error: error instanceof Error ? error.message : 'Failed to update todo',
+        error: error instanceof Error ? error.message : "Failed to update todo",
       });
     }
   },
@@ -132,7 +141,7 @@ export const useTodoStore = create<TodoSlice>((set, get) => ({
     } catch (error) {
       set({
         isLoading: false,
-        error: error instanceof Error ? error.message : 'Failed to delete todo',
+        error: error instanceof Error ? error.message : "Failed to delete todo",
       });
     }
   },

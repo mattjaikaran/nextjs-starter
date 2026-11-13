@@ -1,25 +1,32 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Loader2, Save } from 'lucide-react';
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Loader2, Save } from "lucide-react";
 
 interface ProfileTabProps {
   profileForm: { firstName: string; lastName: string; email: string };
-  setProfileForm: React.Dispatch<React.SetStateAction<{ firstName: string; lastName: string; email: string }>>;
+  setProfileForm: React.Dispatch<
+    React.SetStateAction<{ firstName: string; lastName: string; email: string }>
+  >;
   onSubmit: (e: React.FormEvent) => void;
   isPending: boolean;
 }
 
-export function ProfileTab({ profileForm, setProfileForm, onSubmit, isPending }: ProfileTabProps) {
+export function ProfileTab({
+  profileForm,
+  setProfileForm,
+  onSubmit,
+  isPending,
+}: ProfileTabProps) {
   return (
     <Card>
       <CardHeader>
@@ -36,8 +43,11 @@ export function ProfileTab({ profileForm, setProfileForm, onSubmit, isPending }:
               <Input
                 id="firstName"
                 value={profileForm.firstName}
-                onChange={e =>
-                  setProfileForm(prev => ({ ...prev, firstName: e.target.value }))
+                onChange={(e) =>
+                  setProfileForm((prev) => ({
+                    ...prev,
+                    firstName: e.target.value,
+                  }))
                 }
                 placeholder="John"
               />
@@ -47,8 +57,11 @@ export function ProfileTab({ profileForm, setProfileForm, onSubmit, isPending }:
               <Input
                 id="lastName"
                 value={profileForm.lastName}
-                onChange={e =>
-                  setProfileForm(prev => ({ ...prev, lastName: e.target.value }))
+                onChange={(e) =>
+                  setProfileForm((prev) => ({
+                    ...prev,
+                    lastName: e.target.value,
+                  }))
                 }
                 placeholder="Doe"
               />
@@ -60,8 +73,8 @@ export function ProfileTab({ profileForm, setProfileForm, onSubmit, isPending }:
               id="email"
               type="email"
               value={profileForm.email}
-              onChange={e =>
-                setProfileForm(prev => ({ ...prev, email: e.target.value }))
+              onChange={(e) =>
+                setProfileForm((prev) => ({ ...prev, email: e.target.value }))
               }
               placeholder="john@example.com"
             />

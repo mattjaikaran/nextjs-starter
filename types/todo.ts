@@ -1,4 +1,4 @@
-import type { BaseEntity } from './base';
+import type { BaseEntity } from "./base";
 
 export interface Todo extends BaseEntity {
   title: string;
@@ -10,7 +10,7 @@ export interface Todo extends BaseEntity {
   userId: string;
 }
 
-export type TodoPriority = 'low' | 'medium' | 'high';
+export type TodoPriority = "low" | "medium" | "high";
 
 export interface CreateTodoRequest {
   title: string;
@@ -33,7 +33,7 @@ export interface TodoState {
 
 export interface TodoFilters {
   search: string;
-  priority: TodoPriority | 'all';
-  completed: boolean | 'all';
+  priority: TodoPriority | "all";
+  completed: boolean | "all";
   tags: string[];
 }

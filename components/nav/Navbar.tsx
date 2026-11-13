@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,14 +8,14 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { ModeToggle } from '@/components/ui/mode-toggle';
-import { useLogout } from '@/hooks';
-import { useAuth } from '@/lib/store';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { LogOut, Menu, User, X } from 'lucide-react';
-import { useState } from 'react';
+} from "@/components/ui/dropdown-menu";
+import { ModeToggle } from "@/components/ui/mode-toggle";
+import { useLogout } from "@/hooks";
+import { useAuth } from "@/lib/store";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { LogOut, Menu, User, X } from "lucide-react";
+import { useState } from "react";
 
 interface NavbarProps {
   className?: string;
@@ -32,14 +32,14 @@ export function Navbar({ className }: NavbarProps) {
   };
 
   const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' },
-    { name: 'FAQ', href: '/faq' },
-    { name: 'Feedback', href: '/feedback' },
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
+    { name: "FAQ", href: "/faq" },
+    { name: "Feedback", href: "/feedback" },
   ];
 
-  const authenticatedNavigation = [{ name: 'Todos', href: '/todos' }];
+  const authenticatedNavigation = [{ name: "Todos", href: "/todos" }];
 
   const isActive = (href: string) => pathname === href;
 
@@ -57,12 +57,12 @@ export function Navbar({ className }: NavbarProps) {
 
           {/* Desktop Navigation */}
           <div className="hidden items-center gap-x-8 md:flex">
-            {navigation.map(item => (
+            {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
                 className={`rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors hover:text-primary ${
-                  isActive(item.href) ? 'text-primary bg-primary/10' : ''
+                  isActive(item.href) ? "text-primary bg-primary/10" : ""
                 }`}
               >
                 {item.name}
@@ -70,12 +70,12 @@ export function Navbar({ className }: NavbarProps) {
             ))}
 
             {isAuthenticated &&
-              authenticatedNavigation.map(item => (
+              authenticatedNavigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
                   className={`rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors hover:text-primary ${
-                    isActive(item.href) ? 'text-primary bg-primary/10' : ''
+                    isActive(item.href) ? "text-primary bg-primary/10" : ""
                   }`}
                 >
                   {item.name}
@@ -148,12 +148,12 @@ export function Navbar({ className }: NavbarProps) {
         {isMobileMenuOpen && (
           <div className="md:hidden">
             <div className="flex flex-col gap-y-1 px-2 pb-3 pt-2 sm:px-3">
-              {navigation.map(item => (
+              {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
                   className={`block rounded-md px-3 py-2 text-base font-medium text-foreground transition-colors hover:text-primary ${
-                    isActive(item.href) ? 'text-primary bg-primary/10' : ''
+                    isActive(item.href) ? "text-primary bg-primary/10" : ""
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -162,12 +162,12 @@ export function Navbar({ className }: NavbarProps) {
               ))}
 
               {isAuthenticated &&
-                authenticatedNavigation.map(item => (
+                authenticatedNavigation.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
                     className={`block rounded-md px-3 py-2 text-base font-medium text-foreground transition-colors hover:text-primary ${
-                      isActive(item.href) ? 'text-primary bg-primary/10' : ''
+                      isActive(item.href) ? "text-primary bg-primary/10" : ""
                     }`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >

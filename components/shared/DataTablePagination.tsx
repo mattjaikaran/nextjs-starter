@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { Table } from '@tanstack/react-table';
+import { Button } from "@/components/ui/button";
+import { Table } from "@tanstack/react-table";
 import {
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
-} from 'lucide-react';
+} from "lucide-react";
 
 interface ServerPagination {
   page: number;
@@ -48,7 +48,7 @@ export function DataTablePagination<TData>({
           </>
         ) : (
           <>
-            {table.getFilteredSelectedRowModel().rows.length} of {totalRows}{' '}
+            {table.getFilteredSelectedRowModel().rows.length} of {totalRows}{" "}
             row(s) selected.
           </>
         )}
@@ -62,7 +62,7 @@ export function DataTablePagination<TData>({
                 ? serverPagination!.pageSize
                 : table.getState().pagination.pageSize
             }
-            onChange={e => {
+            onChange={(e) => {
               const newSize = Number(e.target.value);
               if (onPaginationChange) {
                 onPaginationChange(1, newSize);
@@ -73,7 +73,7 @@ export function DataTablePagination<TData>({
             className="h-8 w-[70px] rounded border border-input bg-background px-2 text-sm"
             disabled={isLoading}
           >
-            {[10, 20, 30, 40, 50].map(size => (
+            {[10, 20, 30, 40, 50].map((size) => (
               <option key={size} value={size}>
                 {size}
               </option>

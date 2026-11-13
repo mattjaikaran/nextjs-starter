@@ -1,25 +1,40 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Key, Loader2, Shield } from 'lucide-react';
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Key, Loader2, Shield } from "lucide-react";
 
 interface SecurityTabProps {
-  passwordForm: { currentPassword: string; newPassword: string; confirmPassword: string };
-  setPasswordForm: React.Dispatch<React.SetStateAction<{ currentPassword: string; newPassword: string; confirmPassword: string }>>;
+  passwordForm: {
+    currentPassword: string;
+    newPassword: string;
+    confirmPassword: string;
+  };
+  setPasswordForm: React.Dispatch<
+    React.SetStateAction<{
+      currentPassword: string;
+      newPassword: string;
+      confirmPassword: string;
+    }>
+  >;
   onSubmit: (e: React.FormEvent) => void;
   isPending: boolean;
 }
 
-export function SecurityTab({ passwordForm, setPasswordForm, onSubmit, isPending }: SecurityTabProps) {
+export function SecurityTab({
+  passwordForm,
+  setPasswordForm,
+  onSubmit,
+  isPending,
+}: SecurityTabProps) {
   return (
     <div className="space-y-6">
       <Card>
@@ -40,8 +55,11 @@ export function SecurityTab({ passwordForm, setPasswordForm, onSubmit, isPending
                 id="currentPassword"
                 type="password"
                 value={passwordForm.currentPassword}
-                onChange={e =>
-                  setPasswordForm(prev => ({ ...prev, currentPassword: e.target.value }))
+                onChange={(e) =>
+                  setPasswordForm((prev) => ({
+                    ...prev,
+                    currentPassword: e.target.value,
+                  }))
                 }
               />
             </div>
@@ -51,8 +69,11 @@ export function SecurityTab({ passwordForm, setPasswordForm, onSubmit, isPending
                 id="newPassword"
                 type="password"
                 value={passwordForm.newPassword}
-                onChange={e =>
-                  setPasswordForm(prev => ({ ...prev, newPassword: e.target.value }))
+                onChange={(e) =>
+                  setPasswordForm((prev) => ({
+                    ...prev,
+                    newPassword: e.target.value,
+                  }))
                 }
               />
             </div>
@@ -62,8 +83,11 @@ export function SecurityTab({ passwordForm, setPasswordForm, onSubmit, isPending
                 id="confirmPassword"
                 type="password"
                 value={passwordForm.confirmPassword}
-                onChange={e =>
-                  setPasswordForm(prev => ({ ...prev, confirmPassword: e.target.value }))
+                onChange={(e) =>
+                  setPasswordForm((prev) => ({
+                    ...prev,
+                    confirmPassword: e.target.value,
+                  }))
                 }
               />
             </div>

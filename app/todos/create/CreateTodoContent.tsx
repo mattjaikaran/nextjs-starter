@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { TodoForm } from '@/forms/todos/TodoForm';
-import { useRouter } from 'next/navigation';
+import { TodoForm } from "@/forms/todos/TodoForm";
+import { useRouter } from "next/navigation";
 
 export function CreateTodoContent() {
   const { push } = useRouter();
 
   const handleSuccess = () => {
-    push('/todos');
+    push("/todos");
   };
 
   const handleCancel = () => {
-    push('/todos');
+    push("/todos");
   };
 
   return (

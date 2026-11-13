@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 export {
   useApiDelete,
@@ -15,7 +15,7 @@ export {
   useOptimisticRemove,
   useOptimisticUpdate,
   usePrefetch,
-} from './api';
+} from "./api";
 
 export {
   useAuthStatus,
@@ -30,7 +30,7 @@ export {
   useTodosByStatus,
   useTodosDueToday,
   useTodoStats,
-} from './queries';
+} from "./queries";
 
 export {
   useChangePassword,
@@ -46,7 +46,7 @@ export {
   useUpdateProfile,
   useUpdateTodo,
   useVerifyMagicLink,
-} from './mutations';
+} from "./mutations";
 
 export {
   useBreakpoint,
@@ -62,7 +62,7 @@ export {
   usePrefersDarkMode,
   usePrefersReducedMotion,
   useSessionStorage,
-} from './utils';
+} from "./utils";
 
 export {
   useApiConfig,
@@ -79,4 +79,4 @@ export {
   useTodos as useTodosStore,
   useToggleTheme,
   useUI,
-} from '@/lib/store';
+} from "@/lib/store";

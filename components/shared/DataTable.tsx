@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { SkeletonTable } from '@/components/ui/skeleton';
+import { SkeletonTable } from "@/components/ui/skeleton";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -13,11 +13,11 @@ import {
   SortingState,
   useReactTable,
   VisibilityState,
-} from '@tanstack/react-table';
-import { useReducer, useRef } from 'react';
-import { DataTableBody } from './DataTableBody';
-import { DataTablePagination } from './DataTablePagination';
-import { DataTableToolbar } from './DataTableToolbar';
+} from "@tanstack/react-table";
+import { useReducer, useRef } from "react";
+import { DataTableBody } from "./DataTableBody";
+import { DataTablePagination } from "./DataTablePagination";
+import { DataTableToolbar } from "./DataTableToolbar";
 
 /**
  * Server-side pagination info (Django Ninja format)
@@ -58,20 +58,26 @@ interface TableState {
 }
 
 type TableAction =
-  | { type: 'SET_SORTING'; payload: SortingState }
-  | { type: 'SET_COLUMN_FILTERS'; payload: ColumnFiltersState }
-  | { type: 'SET_COLUMN_VISIBILITY'; payload: VisibilityState }
-  | { type: 'SET_ROW_SELECTION'; payload: Record<string, boolean> }
-  | { type: 'SET_SEARCH_VALUE'; payload: string };
+  | { type: "SET_SORTING"; payload: SortingState }
+  | { type: "SET_COLUMN_FILTERS"; payload: ColumnFiltersState }
+  | { type: "SET_COLUMN_VISIBILITY"; payload: VisibilityState }
+  | { type: "SET_ROW_SELECTION"; payload: Record<string, boolean> }
+  | { type: "SET_SEARCH_VALUE"; payload: string };
 
 function tableReducer(state: TableState, action: TableAction): TableState {
   switch (action.type) {
-    case 'SET_SORTING': return { ...state, sorting: action.payload };
-    case 'SET_COLUMN_FILTERS': return { ...state, columnFilters: action.payload };
-    case 'SET_COLUMN_VISIBILITY': return { ...state, columnVisibility: action.payload };
-    case 'SET_ROW_SELECTION': return { ...state, rowSelection: action.payload };
-    case 'SET_SEARCH_VALUE': return { ...state, searchValue: action.payload };
-    default: return state;
+    case "SET_SORTING":
+      return { ...state, sorting: action.payload };
+    case "SET_COLUMN_FILTERS":
+      return { ...state, columnFilters: action.payload };
+    case "SET_COLUMN_VISIBILITY":
+      return { ...state, columnVisibility: action.payload };
+    case "SET_ROW_SELECTION":
+      return { ...state, rowSelection: action.payload };
+    case "SET_SEARCH_VALUE":
+      return { ...state, searchValue: action.payload };
+    default:
+      return state;
   }
 }
 
@@ -79,7 +85,7 @@ export function DataTable<TData, TValue>({
   columns,
   data,
   searchKey,
-  searchPlaceholder = 'Search...',
+  searchPlaceholder = "Search...",
   showColumnToggle = true,
   showPagination = true,
   pageSize = 10,
@@ -94,20 +100,51 @@ export function DataTable<TData, TValue>({
     columnFilters: [],
     columnVisibility: {},
     rowSelection: {},
-    searchValue: '',
+    searchValue: "",
   });
-  const { sorting, columnFilters, columnVisibility, rowSelection, searchValue } = tableState;
+  const {
+    sorting,
+    columnFilters,
+    columnVisibility,
+    rowSelection,
+    searchValue,
+  } = tableState;
 
-  const setSorting = (updater: SortingState | ((prev: SortingState) => SortingState)) =>
-    dispatch({ type: 'SET_SORTING', payload: typeof updater === 'function' ? updater(sorting) : updater });
-  const setColumnFilters = (updater: ColumnFiltersState | ((prev: ColumnFiltersState) => ColumnFiltersState)) =>
-    dispatch({ type: 'SET_COLUMN_FILTERS', payload: typeof updater === 'function' ? updater(columnFilters) : updater });
-  const setColumnVisibility = (updater: VisibilityState | ((prev: VisibilityState) => VisibilityState)) =>
-    dispatch({ type: 'SET_COLUMN_VISIBILITY', payload: typeof updater === 'function' ? updater(columnVisibility) : updater });
-  const setRowSelection = (updater: Record<string, boolean> | ((prev: Record<string, boolean>) => Record<string, boolean>)) =>
-    dispatch({ type: 'SET_ROW_SELECTION', payload: typeof updater === 'function' ? updater(rowSelection) : updater });
+  const setSorting = (
+    updater: SortingState | ((prev: SortingState) => SortingState),
+  ) =>
+    dispatch({
+      type: "SET_SORTING",
+      payload: typeof updater === "function" ? updater(sorting) : updater,
+    });
+  const setColumnFilters = (
+    updater:
+      | ColumnFiltersState
+      | ((prev: ColumnFiltersState) => ColumnFiltersState),
+  ) =>
+    dispatch({
+      type: "SET_COLUMN_FILTERS",
+      payload: typeof updater === "function" ? updater(columnFilters) : updater,
+    });
+  const setColumnVisibility = (
+    updater: VisibilityState | ((prev: VisibilityState) => VisibilityState),
+  ) =>
+    dispatch({
+      type: "SET_COLUMN_VISIBILITY",
+      payload:
+        typeof updater === "function" ? updater(columnVisibility) : updater,
+    });
+  const setRowSelection = (
+    updater:
+      | Record<string, boolean>
+      | ((prev: Record<string, boolean>) => Record<string, boolean>),
+  ) =>
+    dispatch({
+      type: "SET_ROW_SELECTION",
+      payload: typeof updater === "function" ? updater(rowSelection) : updater,
+    });
   const setSearchValue = (value: string) =>
-    dispatch({ type: 'SET_SEARCH_VALUE', payload: value });
+    dispatch({ type: "SET_SEARCH_VALUE", payload: value });
 
   const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -127,12 +164,16 @@ export function DataTable<TData, TValue>({
 
   const isServerSide = !!serverPagination;
   const pagination: PaginationState = isServerSide
-    ? { pageIndex: serverPagination.page - 1, pageSize: serverPagination.pageSize }
+    ? {
+        pageIndex: serverPagination.page - 1,
+        pageSize: serverPagination.pageSize,
+      }
     : { pageIndex: 0, pageSize };
 
-  const handlePaginationChange: OnChangeFn<PaginationState> = updater => {
+  const handlePaginationChange: OnChangeFn<PaginationState> = (updater) => {
     if (!onPaginationChange) return;
-    const newState = typeof updater === 'function' ? updater(pagination) : updater;
+    const newState =
+      typeof updater === "function" ? updater(pagination) : updater;
     onPaginationChange(newState.pageIndex + 1, newState.pageSize);
   };
 

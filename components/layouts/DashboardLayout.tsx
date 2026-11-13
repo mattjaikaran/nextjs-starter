@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
 /**
  * Dashboard Layout
  * Protected layout for authenticated dashboard pages
  */
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,13 +13,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { ModeToggle } from '@/components/ui/mode-toggle';
-import { useLogout } from '@/hooks';
-import { useAuth } from '@/lib/store';
-import { cn } from '@/lib/utils';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+} from "@/components/ui/dropdown-menu";
+import { ModeToggle } from "@/components/ui/mode-toggle";
+import { useLogout } from "@/hooks";
+import { useAuth } from "@/lib/store";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Bell,
   CheckSquare,
@@ -30,8 +30,8 @@ import {
   Settings,
   User,
   X,
-} from 'lucide-react';
-import { useState } from 'react';
+} from "lucide-react";
+import { useState } from "react";
 
 interface NavItem {
   label: string;
@@ -40,9 +40,9 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { label: 'Todos', href: '/todos', icon: CheckSquare },
-  { label: 'Settings', href: '/dashboard/settings', icon: Settings },
+  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { label: "Todos", href: "/todos", icon: CheckSquare },
+  { label: "Settings", href: "/dashboard/settings", icon: Settings },
 ];
 
 interface DashboardLayoutProps {
@@ -70,8 +70,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       {/* Sidebar */}
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-50 w-64 transform border-r bg-card transition-transform duration-200 ease-in-out lg:translate-x-0',
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+          "fixed inset-y-0 left-0 z-50 w-64 transform border-r bg-card transition-transform duration-200 ease-in-out lg:translate-x-0",
+          sidebarOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
         {/* Sidebar header */}
@@ -96,17 +96,17 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
         {/* Navigation */}
         <nav className="space-y-1 p-4">
-          {navItems.map(item => {
+          {navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                  "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                   isActive
-                    ? 'bg-primary text-primary-foreground'
-                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground",
                 )}
                 onClick={() => setSidebarOpen(false)}
               >
@@ -154,7 +154,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                       <User className="size-4 text-primary" />
                     </div>
                     <span className="hidden max-w-[100px] truncate sm:inline-block">
-                      {user?.email || 'User'}
+                      {user?.email || "User"}
                     </span>
                     <ChevronDown className="size-4 text-muted-foreground" />
                   </Button>
@@ -162,7 +162,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                 <DropdownMenuContent align="end" className="w-56">
                   <DropdownMenuLabel>
                     <div className="flex flex-col">
-                      <span>{user?.firstName || 'User'}</span>
+                      <span>{user?.firstName || "User"}</span>
                       <span className="text-xs font-normal text-muted-foreground">
                         {user?.email}
                       </span>

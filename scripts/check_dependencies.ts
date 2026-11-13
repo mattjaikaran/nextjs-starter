@@ -47,7 +47,10 @@ export function parseDocumentedDependencies(depsMd: string): Set<string> {
   return names;
 }
 
-export function findMissingDependencies(pkgJson: string, depsMd: string): string[] {
+export function findMissingDependencies(
+  pkgJson: string,
+  depsMd: string,
+): string[] {
   const deps = parseDependencyNames(pkgJson);
   const documented = parseDocumentedDependencies(depsMd);
   return deps.filter((name) => !documented.has(name));
@@ -100,8 +103,8 @@ function main(): number {
           count: violations.length,
         },
         null,
-        2
-      )
+        2,
+      ),
     );
   } else {
     if (violations.length === 0) {
@@ -113,7 +116,7 @@ function main(): number {
     console.log(
       violations.length
         ? `\n${violations.length} violation(s) found.`
-        : "\n0 violations."
+        : "\n0 violations.",
     );
   }
 

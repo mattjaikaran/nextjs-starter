@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 /**
  * Query Hooks Exports
@@ -6,7 +6,7 @@
  */
 
 // Auth queries
-export { useAuthStatus, useProfile, useSessionCheck } from './use-auth-queries';
+export { useAuthStatus, useProfile, useSessionCheck } from "./use-auth-queries";
 
 // Todo queries
 export {
@@ -19,4 +19,4 @@ export {
   useTodosByStatus,
   useTodosDueToday,
   useTodoStats,
-} from './use-todo-queries';
+} from "./use-todo-queries";

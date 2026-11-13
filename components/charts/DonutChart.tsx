@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
 /**
  * Donut Chart Component
  * A flexible donut/pie chart using SVG for data visualization
  */
 
-import { cn } from '@/lib/utils';
-import { useMemo } from 'react';
+import { cn } from "@/lib/utils";
+import { useMemo } from "react";
 
 export interface DonutChartDataPoint {
   label: string;
@@ -48,7 +48,7 @@ export function DonutChart({
     const radius = 50 - thickness / 2;
     const circumference = 2 * Math.PI * radius;
 
-    const segs = data.map(d => {
+    const segs = data.map((d) => {
       const percentage = (d.value / sum) * 100;
       const angle = (d.value / sum) * 360;
       const startAngle = cumulativeAngle;
@@ -77,7 +77,7 @@ export function DonutChart({
   if (data.length === 0 || total === 0) {
     return (
       <div
-        className={cn('flex items-center justify-center', className)}
+        className={cn("flex items-center justify-center", className)}
         style={{ width: size, height: size }}
       >
         <p className="text-sm text-muted-foreground">No data available</p>
@@ -86,7 +86,7 @@ export function DonutChart({
   }
 
   return (
-    <div className={cn('flex items-center gap-6', className)}>
+    <div className={cn("flex items-center gap-6", className)}>
       {/* Chart */}
       <div className="relative" style={{ width: size, height: size }}>
         <svg viewBox="0 0 100 100" className="-rotate-90 transform">
@@ -102,8 +102,8 @@ export function DonutChart({
               strokeDasharray={`${segment.dashArray} ${segment.circumference}`}
               strokeDashoffset={-segment.dashOffset}
               className={cn(
-                'transition-all duration-700',
-                animate && 'animate-in fade-in zoom-in'
+                "transition-all duration-700",
+                animate && "animate-in fade-in zoom-in",
               )}
               style={{ animationDelay: `${i * 100}ms` }}
             />
@@ -115,7 +115,7 @@ export function DonutChart({
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             {centerValue !== undefined && (
               <span className="text-2xl font-bold">
-                {typeof centerValue === 'number'
+                {typeof centerValue === "number"
                   ? centerValue.toLocaleString()
                   : centerValue}
               </span>
@@ -130,7 +130,7 @@ export function DonutChart({
 
         {/* Percentage labels on chart */}
         {showLabels &&
-          segments.map((segment, i) => {
+          segments.map((segment) => {
             const midAngle =
               ((segment.startAngle + segment.endAngle) / 2) * (Math.PI / 180);
             const labelRadius = 50 - thickness - 5;
@@ -144,7 +144,7 @@ export function DonutChart({
                 style={{
                   left: `${x}%`,
                   top: `${y}%`,
-                  transform: 'translate(-50%, -50%)',
+                  transform: "translate(-50%, -50%)",
                 }}
               >
                 {Math.round(segment.percentage)}%
@@ -156,7 +156,7 @@ export function DonutChart({
       {/* Legend */}
       {showLegend && (
         <div className="flex flex-col gap-2">
-          {segments.map((segment, i) => (
+          {segments.map((segment) => (
             <div key={segment.label} className="flex items-center gap-2">
               <div
                 className="size-3 rounded-full"

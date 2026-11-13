@@ -4,7 +4,7 @@ export function unique<T>(arr: T[]): T[] {
 
 export function groupBy<T, K extends string | number>(
   arr: T[],
-  keyFn: (item: T) => K
+  keyFn: (item: T) => K,
 ): Record<K, T[]> {
   return arr.reduce(
     (acc, item) => {
@@ -13,7 +13,7 @@ export function groupBy<T, K extends string | number>(
       acc[key].push(item);
       return acc;
     },
-    {} as Record<K, T[]>
+    {} as Record<K, T[]>,
   );
 }
 

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 /**
  * Mutation Hooks Exports
@@ -16,7 +16,7 @@ export {
   useResetPassword,
   useUpdateProfile,
   useVerifyMagicLink,
-} from './use-auth-mutations';
+} from "./use-auth-mutations";
 
 // Todo mutations
 export {
@@ -24,4 +24,4 @@ export {
   useDeleteTodo,
   useToggleTodo,
   useUpdateTodo,
-} from './use-todo-mutations';
+} from "./use-todo-mutations";

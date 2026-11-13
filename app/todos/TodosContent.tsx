@@ -1,40 +1,41 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { useTodos } from '@/hooks';
-import { useAuth } from '@/lib/store';
-import type { Todo } from '@/types';
-import { CheckCircle2, Circle, Plus, Search, Trash2 } from 'lucide-react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+} from "@/components/ui/select";
+import { useTodos } from "@/hooks";
+import { useAuth } from "@/lib/store";
+import type { Todo } from "@/types";
+import { CheckCircle2, Circle, Plus, Search, Trash2 } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export function TodosContent() {
   const { isAuthenticated } = useAuth();
   const { push } = useRouter();
   const { data: todosResponse, isLoading } = useTodos();
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<
-    'all' | 'completed' | 'pending'
-  >('all');
+    "all" | "completed" | "pending"
+  >("all");
 
   useEffect(() => {
-    if (!isAuthenticated) push('/login');
+    if (!isAuthenticated) push("/login");
   }, [isAuthenticated, push]);
 
   if (!isAuthenticated) {
     return null;
   }
 
-  const todos = todosResponse?.data ?? (Array.isArray(todosResponse) ? todosResponse : []);
+  const todos =
+    todosResponse?.data ?? (Array.isArray(todosResponse) ? todosResponse : []);
   const filteredTodos = (Array.isArray(todos) ? todos : []).filter(
     (todo: Todo) => {
       const matchesSearch =
@@ -43,11 +44,11 @@ export function TodosContent() {
           ?.toLowerCase()
           .includes(searchTerm.toLowerCase());
       const matchesStatus =
-        statusFilter === 'all' ||
-        (statusFilter === 'completed' && todo.completed) ||
-        (statusFilter === 'pending' && !todo.completed);
+        statusFilter === "all" ||
+        (statusFilter === "completed" && todo.completed) ||
+        (statusFilter === "pending" && !todo.completed);
       return matchesSearch && matchesStatus;
-    }
+    },
   );
 
   return (
@@ -76,14 +77,14 @@ export function TodosContent() {
                 <Input
                   placeholder="Search todos..."
                   value={searchTerm}
-                  onChange={e => setSearchTerm(e.target.value)}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
                 />
               </div>
             </div>
             <Select
               value={statusFilter}
-              onValueChange={(value: 'all' | 'completed' | 'pending') =>
+              onValueChange={(value: "all" | "completed" | "pending") =>
                 setStatusFilter(value)
               }
             >
@@ -108,8 +109,8 @@ export function TodosContent() {
             <div className="card-container p-6 text-center">
               <p className="text-muted-foreground">
                 {todos.length === 0
-                  ? 'No todos yet. Create your first todo to get started!'
-                  : 'No todos match your current filters.'}
+                  ? "No todos yet. Create your first todo to get started!"
+                  : "No todos match your current filters."}
               </p>
               {todos.length === 0 && (
                 <Button asChild className="mt-4">
@@ -135,7 +136,7 @@ export function TodosContent() {
                   <div className="min-w-0 flex-1">
                     <div className="mb-1 flex items-center gap-2">
                       <h3
-                        className={`font-medium ${todo.completed ? 'text-muted-foreground line-through' : ''}`}
+                        className={`font-medium ${todo.completed ? "text-muted-foreground line-through" : ""}`}
                       >
                         {todo.title}
                       </h3>
@@ -143,7 +144,7 @@ export function TodosContent() {
 
                     {(todo as { description?: string }).description && (
                       <p
-                        className={`mb-2 text-sm text-muted-foreground ${todo.completed ? 'line-through' : ''}`}
+                        className={`mb-2 text-sm text-muted-foreground ${todo.completed ? "line-through" : ""}`}
                       >
                         {(todo as { description: string }).description}
                       </p>

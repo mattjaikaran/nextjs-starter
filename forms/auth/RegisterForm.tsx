@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -8,42 +8,42 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { useRegister } from '@/hooks';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Eye, EyeOff, Loader2 } from 'lucide-react';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useRegister } from "@/hooks";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const registerSchema = z
   .object({
     firstName: z
       .string()
-      .min(1, 'First name is required')
-      .min(2, 'First name must be at least 2 characters'),
+      .min(1, "First name is required")
+      .min(2, "First name must be at least 2 characters"),
     lastName: z
       .string()
-      .min(1, 'Last name is required')
-      .min(2, 'Last name must be at least 2 characters'),
+      .min(1, "Last name is required")
+      .min(2, "Last name must be at least 2 characters"),
     email: z
       .string()
-      .min(1, 'Email is required')
-      .email('Please enter a valid email address'),
+      .min(1, "Email is required")
+      .email("Please enter a valid email address"),
     password: z
       .string()
-      .min(1, 'Password is required')
-      .min(8, 'Password must be at least 8 characters')
+      .min(1, "Password is required")
+      .min(8, "Password must be at least 8 characters")
       .regex(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-        'Password must contain at least one uppercase letter, one lowercase letter, and one number'
+        "Password must contain at least one uppercase letter, one lowercase letter, and one number",
       ),
-    confirmPassword: z.string().min(1, 'Please confirm your password'),
+    confirmPassword: z.string().min(1, "Please confirm your password"),
   })
-  .refine(data => data.password === data.confirmPassword, {
-    message: 'Passwords do not match',
-    path: ['confirmPassword'],
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
   });
 
 type RegisterFormData = z.infer<typeof registerSchema>;
@@ -64,11 +64,11 @@ export function RegisterForm({
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     },
   });
 
@@ -161,7 +161,7 @@ export function RegisterForm({
                 <FormControl>
                   <div className="relative">
                     <Input
-                      type={showPassword ? 'text' : 'password'}
+                      type={showPassword ? "text" : "password"}
                       placeholder="Create a password"
                       autoComplete="new-password"
                       {...field}
@@ -179,7 +179,7 @@ export function RegisterForm({
                         <Eye className="size-4" />
                       )}
                       <span className="sr-only">
-                        {showPassword ? 'Hide password' : 'Show password'}
+                        {showPassword ? "Hide password" : "Show password"}
                       </span>
                     </Button>
                   </div>
@@ -198,7 +198,7 @@ export function RegisterForm({
                 <FormControl>
                   <div className="relative">
                     <Input
-                      type={showConfirmPassword ? 'text' : 'password'}
+                      type={showConfirmPassword ? "text" : "password"}
                       placeholder="Confirm your password"
                       autoComplete="new-password"
                       {...field}
@@ -219,8 +219,8 @@ export function RegisterForm({
                       )}
                       <span className="sr-only">
                         {showConfirmPassword
-                          ? 'Hide password'
-                          : 'Show password'}
+                          ? "Hide password"
+                          : "Show password"}
                       </span>
                     </Button>
                   </div>
@@ -244,7 +244,7 @@ export function RegisterForm({
 
         {onSwitchToLogin && (
           <div className="text-center text-sm">
-            Already have an account?{' '}
+            Already have an account?{" "}
             <Button
               type="button"
               variant="link"

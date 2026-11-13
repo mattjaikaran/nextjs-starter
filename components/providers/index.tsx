@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { ThemeProvider } from './theme-provider';
-import { QueryProvider } from './query-provider';
-import { Toaster } from '@/components/ui/sonner';
+import { ThemeProvider } from "./theme-provider";
+import { QueryProvider } from "./query-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 interface AppProvidersProps {
   children: React.ReactNode;

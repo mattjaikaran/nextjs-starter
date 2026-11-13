@@ -1,8 +1,8 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | Next.js Starter',
-  description: 'Terms of service for Next.js Starter.',
+  title: "Terms of Service | Next.js Starter",
+  description: "Terms of service for Next.js Starter.",
 };
 
 export default function TermsPage() {
@@ -27,17 +27,17 @@ export default function TermsPage() {
         <section className="mt-8">
           <h2 className="text-2xl font-semibold">Description of Service</h2>
           <p>
-            Our service provides a platform for task management and
-            productivity tools. We reserve the right to modify, suspend, or
-            discontinue the service at any time without notice.
+            Our service provides a platform for task management and productivity
+            tools. We reserve the right to modify, suspend, or discontinue the
+            service at any time without notice.
           </p>
         </section>
 
         <section className="mt-8">
           <h2 className="text-2xl font-semibold">User Accounts</h2>
           <p>
-            To access certain features of the service, you must register for
-            an account. You are responsible for:
+            To access certain features of the service, you must register for an
+            account. You are responsible for:
           </p>
           <ul>
             <li>Maintaining the confidentiality of your account credentials</li>

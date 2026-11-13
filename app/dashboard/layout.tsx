@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { DashboardLayout } from '@/components/layouts/DashboardLayout';
-import { useAuth } from '@/lib/store';
-import { redirect } from 'next/navigation';
+import { DashboardLayout } from "@/components/layouts/DashboardLayout";
+import { useAuth } from "@/lib/store";
+import { redirect } from "next/navigation";
 
 export default function DashboardGroupLayout({
   children,
@@ -12,7 +12,7 @@ export default function DashboardGroupLayout({
   const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
-    redirect('/login');
+    redirect("/login");
   }
 
   return <DashboardLayout>{children}</DashboardLayout>;

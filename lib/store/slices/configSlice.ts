@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import type { AppConfig } from '@/config';
-import { config as defaultConfig } from '@/config';
-import { create } from 'zustand';
+import type { AppConfig } from "@/config";
+import { config as defaultConfig } from "@/config";
+import { create } from "zustand";
 
 export interface ConfigSlice {
   config: AppConfig;
@@ -10,16 +10,16 @@ export interface ConfigSlice {
   isStandalone: boolean;
   sidebarOpen: boolean;
   updateConfig: (updates: Partial<AppConfig>) => void;
-  isFeatureEnabled: (feature: keyof AppConfig['features']) => boolean;
-  setFeature: (feature: keyof AppConfig['features'], enabled: boolean) => void;
+  isFeatureEnabled: (feature: keyof AppConfig["features"]) => boolean;
+  setFeature: (feature: keyof AppConfig["features"], enabled: boolean) => void;
   setSidebarOpen: (open: boolean) => void;
   toggleSidebar: () => void;
 }
 
 export const useConfigStore = create<ConfigSlice>((set, get) => ({
   config: defaultConfig,
-  isDjangoSPA: defaultConfig.env.mode === 'django-spa',
-  isStandalone: defaultConfig.env.mode === 'standalone',
+  isDjangoSPA: defaultConfig.env.mode === "django-spa",
+  isStandalone: defaultConfig.env.mode === "standalone",
   sidebarOpen: true,
 
   updateConfig: (updates) => {
@@ -27,8 +27,8 @@ export const useConfigStore = create<ConfigSlice>((set, get) => ({
     const newConfig = { ...config, ...updates };
     set({
       config: newConfig,
-      isDjangoSPA: newConfig.env.mode === 'django-spa',
-      isStandalone: newConfig.env.mode === 'standalone',
+      isDjangoSPA: newConfig.env.mode === "django-spa",
+      isStandalone: newConfig.env.mode === "standalone",
     });
   },
 

@@ -1,24 +1,24 @@
-'use client';
+"use client";
 
 /**
  * Auth Mutation Hooks
  * React Query hooks for auth mutations (login, register, etc.)
  */
 
-import { authKeys, authService } from '@/lib/api/services';
-import { useAuth, useUI } from '@/lib/store';
+import { authKeys, authService } from "@/lib/api/services";
+import { useAuth, useUI } from "@/lib/store";
 import type {
   AuthResponse,
   LoginCredentials,
   MagicLinkRequest,
   RegisterCredentials,
   User,
-} from '@/types';
+} from "@/types";
 import {
   useMutation,
   UseMutationOptions,
   useQueryClient,
-} from '@tanstack/react-query';
+} from "@tanstack/react-query";
 
 /**
  * Hook for user login
@@ -26,8 +26,8 @@ import {
 export const useLogin = (
   options?: Omit<
     UseMutationOptions<AuthResponse, Error, LoginCredentials>,
-    'mutationFn'
-  >
+    "mutationFn"
+  >,
 ) => {
   const { login } = useAuth();
   const { addNotification } = useUI();
@@ -35,19 +35,19 @@ export const useLogin = (
 
   return useMutation<AuthResponse, Error, LoginCredentials>({
     mutationFn: authService.login,
-    onSuccess: data => {
+    onSuccess: (data) => {
       login(data);
       queryClient.invalidateQueries({ queryKey: authKeys.all });
       addNotification({
-        type: 'success',
-        title: 'Welcome back!',
-        message: 'You have been successfully logged in.',
+        type: "success",
+        title: "Welcome back!",
+        message: "You have been successfully logged in.",
       });
     },
-    onError: error => {
+    onError: (error) => {
       addNotification({
-        type: 'error',
-        title: 'Login failed',
+        type: "error",
+        title: "Login failed",
         message: error.message,
       });
     },
@@ -61,8 +61,8 @@ export const useLogin = (
 export const useRegister = (
   options?: Omit<
     UseMutationOptions<AuthResponse, Error, RegisterCredentials>,
-    'mutationFn'
-  >
+    "mutationFn"
+  >,
 ) => {
   const { register } = useAuth();
   const { addNotification } = useUI();
@@ -70,19 +70,19 @@ export const useRegister = (
 
   return useMutation<AuthResponse, Error, RegisterCredentials>({
     mutationFn: authService.register,
-    onSuccess: data => {
+    onSuccess: (data) => {
       register(data);
       queryClient.invalidateQueries({ queryKey: authKeys.all });
       addNotification({
-        type: 'success',
-        title: 'Account created!',
-        message: 'Your account has been successfully created.',
+        type: "success",
+        title: "Account created!",
+        message: "Your account has been successfully created.",
       });
     },
-    onError: error => {
+    onError: (error) => {
       addNotification({
-        type: 'error',
-        title: 'Registration failed',
+        type: "error",
+        title: "Registration failed",
         message: error.message,
       });
     },
@@ -96,8 +96,8 @@ export const useRegister = (
 export const useMagicLink = (
   options?: Omit<
     UseMutationOptions<{ message: string }, Error, MagicLinkRequest>,
-    'mutationFn'
-  >
+    "mutationFn"
+  >,
 ) => {
   const { addNotification } = useUI();
   const queryClient = useQueryClient();
@@ -107,15 +107,15 @@ export const useMagicLink = (
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: authKeys.all });
       addNotification({
-        type: 'success',
-        title: 'Magic link sent!',
-        message: 'Check your email for the login link.',
+        type: "success",
+        title: "Magic link sent!",
+        message: "Check your email for the login link.",
       });
     },
-    onError: error => {
+    onError: (error) => {
       addNotification({
-        type: 'error',
-        title: 'Failed to send magic link',
+        type: "error",
+        title: "Failed to send magic link",
         message: error.message,
       });
     },
@@ -127,28 +127,27 @@ export const useMagicLink = (
  * Hook for verifying magic link
  */
 export const useVerifyMagicLink = (
-  options?: Omit<UseMutationOptions<AuthResponse, Error, string>, 'mutationFn'>
+  options?: Omit<UseMutationOptions<AuthResponse, Error, string>, "mutationFn">,
 ) => {
   const { login } = useAuth();
   const { addNotification } = useUI();
   const queryClient = useQueryClient();
 
   return useMutation<AuthResponse, Error, string>({
-    mutationFn: (token: string) =>
-      authService.verifyMagicLink(token),
-    onSuccess: data => {
+    mutationFn: (token: string) => authService.verifyMagicLink(token),
+    onSuccess: (data) => {
       login(data);
       queryClient.invalidateQueries({ queryKey: authKeys.all });
       addNotification({
-        type: 'success',
-        title: 'Logged in!',
-        message: 'Magic link verified successfully.',
+        type: "success",
+        title: "Logged in!",
+        message: "Magic link verified successfully.",
       });
     },
-    onError: error => {
+    onError: (error) => {
       addNotification({
-        type: 'error',
-        title: 'Verification failed',
+        type: "error",
+        title: "Verification failed",
         message: error.message,
       });
     },
@@ -162,8 +161,8 @@ export const useVerifyMagicLink = (
 export const useLogout = (
   options?: Omit<
     UseMutationOptions<{ message: string }, Error, void>,
-    'mutationFn'
-  >
+    "mutationFn"
+  >,
 ) => {
   const { logout } = useAuth();
   const { addNotification } = useUI();
@@ -172,15 +171,15 @@ export const useLogout = (
   return useMutation<{ message: string }, Error, void>({
     mutationFn: async () => {
       await authService.logout();
-      return { message: 'Logged out' };
+      return { message: "Logged out" };
     },
     onSuccess: () => {
       logout();
       queryClient.clear();
       addNotification({
-        type: 'success',
-        title: 'Logged out',
-        message: 'You have been successfully logged out.',
+        type: "success",
+        title: "Logged out",
+        message: "You have been successfully logged out.",
       });
     },
     onError: () => {
@@ -188,9 +187,9 @@ export const useLogout = (
       logout();
       queryClient.clear();
       addNotification({
-        type: 'warning',
-        title: 'Logged out',
-        message: 'You have been logged out locally.',
+        type: "warning",
+        title: "Logged out",
+        message: "You have been logged out locally.",
       });
     },
     ...options,
@@ -201,25 +200,25 @@ export const useLogout = (
  * Hook for updating user profile
  */
 export const useUpdateProfile = (
-  options?: Omit<UseMutationOptions<User, Error, Partial<User>>, 'mutationFn'>
+  options?: Omit<UseMutationOptions<User, Error, Partial<User>>, "mutationFn">,
 ) => {
   const { addNotification } = useUI();
   const queryClient = useQueryClient();
 
   return useMutation<User, Error, Partial<User>>({
     mutationFn: authService.updateProfile,
-    onSuccess: data => {
+    onSuccess: (data) => {
       queryClient.setQueryData(authKeys.profile(), data);
       addNotification({
-        type: 'success',
-        title: 'Profile updated',
-        message: 'Your profile has been updated successfully.',
+        type: "success",
+        title: "Profile updated",
+        message: "Your profile has been updated successfully.",
       });
     },
-    onError: error => {
+    onError: (error) => {
       addNotification({
-        type: 'error',
-        title: 'Update failed',
+        type: "error",
+        title: "Update failed",
         message: error.message,
       });
     },
@@ -237,8 +236,8 @@ export const useChangePassword = (
       Error,
       { currentPassword: string; newPassword: string }
     >,
-    'mutationFn'
-  >
+    "mutationFn"
+  >,
 ) => {
   const { addNotification } = useUI();
   const queryClient = useQueryClient();
@@ -254,15 +253,15 @@ export const useChangePassword = (
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: authKeys.all });
       addNotification({
-        type: 'success',
-        title: 'Password changed',
-        message: 'Your password has been changed successfully.',
+        type: "success",
+        title: "Password changed",
+        message: "Your password has been changed successfully.",
       });
     },
-    onError: error => {
+    onError: (error) => {
       addNotification({
-        type: 'error',
-        title: 'Password change failed',
+        type: "error",
+        title: "Password change failed",
         message: error.message,
       });
     },
@@ -276,8 +275,8 @@ export const useChangePassword = (
 export const useRequestPasswordReset = (
   options?: Omit<
     UseMutationOptions<{ message: string }, Error, string>,
-    'mutationFn'
-  >
+    "mutationFn"
+  >,
 ) => {
   const { addNotification } = useUI();
   const queryClient = useQueryClient();
@@ -287,15 +286,15 @@ export const useRequestPasswordReset = (
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: authKeys.all });
       addNotification({
-        type: 'success',
-        title: 'Reset email sent',
-        message: 'Check your email for password reset instructions.',
+        type: "success",
+        title: "Reset email sent",
+        message: "Check your email for password reset instructions.",
       });
     },
-    onError: error => {
+    onError: (error) => {
       addNotification({
-        type: 'error',
-        title: 'Request failed',
+        type: "error",
+        title: "Request failed",
         message: error.message,
       });
     },
@@ -313,8 +312,8 @@ export const useResetPassword = (
       Error,
       { token: string; newPassword: string }
     >,
-    'mutationFn'
-  >
+    "mutationFn"
+  >,
 ) => {
   const { addNotification } = useUI();
   const queryClient = useQueryClient();
@@ -330,15 +329,15 @@ export const useResetPassword = (
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: authKeys.all });
       addNotification({
-        type: 'success',
-        title: 'Password reset',
-        message: 'Your password has been reset. You can now log in.',
+        type: "success",
+        title: "Password reset",
+        message: "Your password has been reset. You can now log in.",
       });
     },
-    onError: error => {
+    onError: (error) => {
       addNotification({
-        type: 'error',
-        title: 'Reset failed',
+        type: "error",
+        title: "Reset failed",
         message: error.message,
       });
     },

@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
 /**
  * Area Chart Component
  * A flexible area chart using SVG for data visualization
  */
 
-import { cn } from '@/lib/utils';
-import { useId, useMemo } from 'react';
+import { cn } from "@/lib/utils";
+import { useId, useMemo } from "react";
 
 export interface AreaChartDataPoint {
   label: string;
@@ -30,9 +30,9 @@ export function AreaChart({
   data,
   height = 200,
   className,
-  color = 'hsl(var(--primary))',
-  gradientFrom = 'hsl(var(--primary) / 0.3)',
-  gradientTo = 'hsl(var(--primary) / 0.05)',
+  color = "hsl(var(--primary))",
+  gradientFrom = "hsl(var(--primary) / 0.3)",
+  gradientTo = "hsl(var(--primary) / 0.05)",
   showGrid = true,
   showLabels = true,
   showValues = false,
@@ -40,9 +40,9 @@ export function AreaChart({
 }: AreaChartProps) {
   const { path, areaPath, points, maxValue, minValue } = useMemo(() => {
     if (data.length === 0)
-      return { path: '', areaPath: '', points: [], maxValue: 0, minValue: 0 };
+      return { path: "", areaPath: "", points: [], maxValue: 0, minValue: 0 };
 
-    const values = data.map(d => d.value);
+    const values = data.map((d) => d.value);
     const max = Math.max(...values);
     const min = Math.min(...values);
     const range = max - min || 1;
@@ -63,8 +63,8 @@ export function AreaChart({
     }));
 
     const linePath = pts
-      .map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`)
-      .join(' ');
+      .map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`)
+      .join(" ");
 
     const area = `${linePath} L ${pts[pts.length - 1]?.x || padding} ${chartHeight - padding} L ${padding} ${chartHeight - padding} Z`;
 
@@ -83,7 +83,7 @@ export function AreaChart({
   if (data.length === 0) {
     return (
       <div
-        className={cn('flex items-center justify-center', className)}
+        className={cn("flex items-center justify-center", className)}
         style={{ height }}
       >
         <p className="text-sm text-muted-foreground">No data available</p>
@@ -92,11 +92,11 @@ export function AreaChart({
   }
 
   return (
-    <div className={cn('relative', className)}>
+    <div className={cn("relative", className)}>
       <svg
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
-        style={{ height, width: '100%' }}
+        style={{ height, width: "100%" }}
         className="overflow-visible"
       >
         <defs>
@@ -109,7 +109,7 @@ export function AreaChart({
         {/* Grid lines */}
         {showGrid && (
           <g className="text-muted-foreground/20">
-            {[0, 25, 50, 75, 100].map(y => (
+            {[0, 25, 50, 75, 100].map((y) => (
               <line
                 key={y}
                 x1="40"
@@ -128,7 +128,7 @@ export function AreaChart({
         <path
           d={areaPath}
           fill={`url(#${gradientId})`}
-          className={animate ? 'duration-700 animate-in fade-in' : ''}
+          className={animate ? "duration-700 animate-in fade-in" : ""}
         />
 
         {/* Line */}
@@ -140,7 +140,7 @@ export function AreaChart({
           vectorEffect="non-scaling-stroke"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className={animate ? 'duration-500 animate-in fade-in' : ''}
+          className={animate ? "duration-500 animate-in fade-in" : ""}
         />
 
         {/* Data points */}
@@ -152,8 +152,8 @@ export function AreaChart({
             r="1.2"
             fill={color}
             className={cn(
-              'transition-transform hover:scale-150',
-              animate && 'duration-300 animate-in zoom-in'
+              "transition-transform hover:scale-150",
+              animate && "duration-300 animate-in zoom-in",
             )}
             style={{ animationDelay: `${i * 50}ms` }}
           />
@@ -163,7 +163,7 @@ export function AreaChart({
       {/* Labels */}
       {showLabels && (
         <div className="mt-2 flex justify-between px-2">
-          {data.map((d, i) => (
+          {data.map((d) => (
             <span
               key={d.label}
               className="truncate text-xs text-muted-foreground"

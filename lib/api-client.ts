@@ -1,5 +1,5 @@
-import { api } from '@/lib/api';
-import type { CreateClientConfig } from '@/src/api/generated/client.gen';
+import { api } from "@/lib/api";
+import type { CreateClientConfig } from "@/src/api/generated/client.gen";
 
 /**
  * Runtime config for the generated hey-api client.
@@ -13,7 +13,10 @@ import type { CreateClientConfig } from '@/src/api/generated/client.gen';
  * instance points at the mount (`/api` or `/api/v1`) for the handwritten
  * services. Strip that suffix so the generated URL is not double-prefixed.
  */
-const apiOrigin = (api.defaults.baseURL ?? '').replace(/\/api(?:\/v1)?\/?$/, '');
+const apiOrigin = (api.defaults.baseURL ?? "").replace(
+  /\/api(?:\/v1)?\/?$/,
+  "",
+);
 
 export const createClientConfig: CreateClientConfig = (config) => ({
   ...config,

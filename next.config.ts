@@ -20,8 +20,7 @@ const nextConfig: NextConfig = {
   },
 
   async rewrites() {
-    const backendUrl =
-      process.env.INTERNAL_API_URL || "http://localhost:8000";
+    const backendUrl = process.env.INTERNAL_API_URL || "http://localhost:8000";
     return [
       {
         source: "/api/v1/:path*",

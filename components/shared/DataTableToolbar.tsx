@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
-import { Table } from '@tanstack/react-table';
-import { ChevronDown, Loader2 } from 'lucide-react';
-import React from 'react';
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import { Table } from "@tanstack/react-table";
+import { ChevronDown, Loader2 } from "lucide-react";
+import React from "react";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -45,9 +45,9 @@ export function DataTableToolbar<TData>({
                   ? searchValue
                   : ((table
                       .getColumn(searchKey!)
-                      ?.getFilterValue() as string) ?? '')
+                      ?.getFilterValue() as string) ?? "")
               }
-              onChange={event =>
+              onChange={(event) =>
                 onSearchChange
                   ? onSearchChange(event.target.value)
                   : onLocalSearchChange?.(event.target.value)
@@ -69,22 +69,20 @@ export function DataTableToolbar<TData>({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .reduce<React.ReactNode[]>((acc, column) => {
-                if (!column.getCanHide()) return acc;
-                acc.push(
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={value => column.toggleVisibility(!!value)}
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-                return acc;
-              }, [])}
+            {table.getAllColumns().reduce<React.ReactNode[]>((acc, column) => {
+              if (!column.getCanHide()) return acc;
+              acc.push(
+                <DropdownMenuCheckboxItem
+                  key={column.id}
+                  className="capitalize"
+                  checked={column.getIsVisible()}
+                  onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                >
+                  {column.id}
+                </DropdownMenuCheckboxItem>,
+              );
+              return acc;
+            }, [])}
           </DropdownMenuContent>
         </DropdownMenu>
       )}
