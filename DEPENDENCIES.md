@@ -7,6 +7,7 @@ listed here. Add a row when you add a dependency.
 | --- | --- |
 | @hey-api/openapi-ts | 0.99.0 |
 | @hookform/resolvers | 5.2.2 |
+| @playwright/test | 1.65.0 |
 | @tailwindcss/postcss | 4 |
 | @tanstack/react-query | 5.90.21 |
 | @tanstack/react-query-devtools | 5.91.3 |

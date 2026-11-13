@@ -13,6 +13,7 @@
     "check-conventions": "bun run scripts/check_conventions.ts",
     "check-dependencies": "bun run scripts/check_dependencies.ts",
     "check-agents": "bun run scripts/check_agent_docs.ts",
+    "test:e2e": "playwright test --pass-with-no-tests",
     "gauntlet": "bun run api:check && bun run lint && bun run check-conventions && bun run check-dependencies && bun run check-agents"
   },
   "dependencies": {
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "@hey-api/openapi-ts": "0.99.0",
+    "@playwright/test": "1.65.0",
     "@tailwindcss/postcss": "4",
     "@types/node": "20",
     "@types/react": "19",
