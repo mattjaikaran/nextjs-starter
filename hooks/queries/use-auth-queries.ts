@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
 /**
  * Auth Query Hooks
  * React Query hooks for fetching auth-related data
  */
 
-import { authKeys, authService } from '@/lib/api/services';
-import { useAuth } from '@/lib/store';
-import type { User } from '@/types';
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { authKeys, authService } from "@/lib/api/services";
+import { useAuth } from "@/lib/store";
+import type { User } from "@/types";
+import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 
 /**
  * Hook to fetch the current user's profile
  */
 export const useProfile = (
-  options?: Omit<UseQueryOptions<User, Error>, 'queryKey' | 'queryFn'>
+  options?: Omit<UseQueryOptions<User, Error>, "queryKey" | "queryFn">,
 ) => {
   const { isAuthenticated } = useAuth();
 
@@ -32,7 +32,7 @@ export const useProfile = (
  * Hook to check if user session is valid
  */
 export const useSessionCheck = (
-  options?: Omit<UseQueryOptions<boolean, Error>, 'queryKey' | 'queryFn'>
+  options?: Omit<UseQueryOptions<boolean, Error>, "queryKey" | "queryFn">,
 ) => {
   const { isAuthenticated } = useAuth();
 

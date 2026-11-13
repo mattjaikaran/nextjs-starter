@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { Github, Linkedin, Twitter } from 'lucide-react';
+import Link from "next/link";
+import { Github, Linkedin, Twitter } from "lucide-react";
 
 interface FooterProps {
   className?: string;
@@ -12,30 +12,30 @@ export function Footer({ className }: FooterProps) {
 
   const navigation = {
     main: [
-      { name: 'Home', href: '/' },
-      { name: 'About', href: '/about' },
-      { name: 'Contact', href: '/contact' },
-      { name: 'FAQ', href: '/faq' },
-      { name: 'Feedback', href: '/feedback' },
+      { name: "Home", href: "/" },
+      { name: "About", href: "/about" },
+      { name: "Contact", href: "/contact" },
+      { name: "FAQ", href: "/faq" },
+      { name: "Feedback", href: "/feedback" },
     ],
     legal: [
-      { name: 'Privacy Policy', href: '/privacy' },
-      { name: 'Terms of Service', href: '/terms' },
+      { name: "Privacy Policy", href: "/privacy" },
+      { name: "Terms of Service", href: "/terms" },
     ],
     social: [
       {
-        name: 'GitHub',
-        href: 'https://github.com',
+        name: "GitHub",
+        href: "https://github.com",
         icon: Github,
       },
       {
-        name: 'Twitter',
-        href: 'https://twitter.com',
+        name: "Twitter",
+        href: "https://twitter.com",
         icon: Twitter,
       },
       {
-        name: 'LinkedIn',
-        href: 'https://linkedin.com',
+        name: "LinkedIn",
+        href: "https://linkedin.com",
         icon: Linkedin,
       },
     ],
@@ -56,7 +56,7 @@ export function Footer({ className }: FooterProps) {
               </p>
             </div>
             <div className="flex gap-x-6">
-              {navigation.social.map(item => (
+              {navigation.social.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
@@ -78,7 +78,7 @@ export function Footer({ className }: FooterProps) {
                   Navigation
                 </h3>
                 <ul className="mt-4 space-y-4">
-                  {navigation.main.map(item => (
+                  {navigation.main.map((item) => (
                     <li key={item.name}>
                       <Link
                         href={item.href}
@@ -95,7 +95,7 @@ export function Footer({ className }: FooterProps) {
                   Legal
                 </h3>
                 <ul className="mt-4 space-y-4">
-                  {navigation.legal.map(item => (
+                  {navigation.legal.map((item) => (
                     <li key={item.name}>
                       <Link
                         href={item.href}

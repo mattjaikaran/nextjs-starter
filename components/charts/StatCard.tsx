@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
 /**
  * Stat Card Component
  * A card for displaying key metrics with optional trend indicators
  */
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import { LucideIcon, Minus, TrendingDown, TrendingUp } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import { LucideIcon, Minus, TrendingDown, TrendingUp } from "lucide-react";
 
 export interface StatCardProps {
   title: string;
@@ -42,16 +42,16 @@ export function StatCard({
     return {
       icon: isNeutral ? Minus : isPositive ? TrendingUp : TrendingDown,
       color: isNeutral
-        ? 'text-muted-foreground'
+        ? "text-muted-foreground"
         : isGood
-          ? 'text-emerald-500'
-          : 'text-rose-500',
+          ? "text-emerald-500"
+          : "text-rose-500",
       bgColor: isNeutral
-        ? 'bg-muted'
+        ? "bg-muted"
         : isGood
-          ? 'bg-emerald-500/10'
-          : 'bg-rose-500/10',
-      prefix: isPositive ? '+' : '',
+          ? "bg-emerald-500/10"
+          : "bg-rose-500/10",
+      prefix: isPositive ? "+" : "",
     };
   };
 
@@ -59,7 +59,7 @@ export function StatCard({
 
   if (loading) {
     return (
-      <Card className={cn('animate-pulse', className)}>
+      <Card className={cn("animate-pulse", className)}>
         <CardHeader className="flex flex-row items-center justify-between pb-2">
           <div className="h-4 w-24 rounded bg-muted" />
           <div className="size-8 rounded bg-muted" />
@@ -73,7 +73,7 @@ export function StatCard({
   }
 
   return (
-    <Card className={cn('transition-all hover:shadow-md', className)}>
+    <Card className={cn("transition-all hover:shadow-md", className)}>
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <CardTitle className="text-sm font-medium text-muted-foreground">
           {title}
@@ -86,16 +86,16 @@ export function StatCard({
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">
-          {typeof value === 'number' ? value.toLocaleString() : value}
+          {typeof value === "number" ? value.toLocaleString() : value}
         </div>
 
         <div className="mt-1 flex items-center gap-2">
           {trendInfo && (
             <div
               className={cn(
-                'flex items-center gap-1 rounded px-1.5 py-0.5 text-xs font-medium',
+                "flex items-center gap-1 rounded px-1.5 py-0.5 text-xs font-medium",
                 trendInfo.bgColor,
-                trendInfo.color
+                trendInfo.color,
               )}
             >
               <trendInfo.icon className="size-3" />

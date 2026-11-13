@@ -1,22 +1,22 @@
-'use client';
+"use client";
 
 /**
  * Local Storage Hook
  * Provides a hook for persisted state in localStorage
  */
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from "react";
 
 /**
  * Hook for state that persists in localStorage
  */
 export const useLocalStorage = <T>(
   key: string,
-  initialValue: T
+  initialValue: T,
 ): [T, (value: T | ((prev: T) => T)) => void, () => void] => {
   // Get stored value or use initial
   const readValue = useCallback((): T => {
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
       return initialValue;
     }
 
@@ -39,27 +39,27 @@ export const useLocalStorage = <T>(
           value instanceof Function ? value(storedValue) : value;
         setStoredValue(valueToStore);
 
-        if (typeof window !== 'undefined') {
+        if (typeof window !== "undefined") {
           window.localStorage.setItem(key, JSON.stringify(valueToStore));
           // Dispatch storage event for cross-tab sync
           window.dispatchEvent(
-            new StorageEvent('storage', {
+            new StorageEvent("storage", {
               key,
               newValue: JSON.stringify(valueToStore),
-            })
+            }),
           );
         }
       } catch (error) {
         console.warn(`Error setting localStorage key "${key}":`, error);
       }
     },
-    [key, storedValue]
+    [key, storedValue],
   );
 
   // Remove from localStorage
   const removeValue = useCallback(() => {
     try {
-      if (typeof window !== 'undefined') {
+      if (typeof window !== "undefined") {
         window.localStorage.removeItem(key);
         setStoredValue(initialValue);
       }
@@ -70,7 +70,7 @@ export const useLocalStorage = <T>(
 
   // Listen for changes in other tabs
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     const handleStorageChange = (event: StorageEvent) => {
       if (event.key === key && event.newValue !== null) {
@@ -82,8 +82,8 @@ export const useLocalStorage = <T>(
       }
     };
 
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, [key, initialValue]);
 
   return [storedValue, setValue, removeValue];
@@ -94,10 +94,10 @@ export const useLocalStorage = <T>(
  */
 export const useSessionStorage = <T>(
   key: string,
-  initialValue: T
+  initialValue: T,
 ): [T, (value: T | ((prev: T) => T)) => void, () => void] => {
   const readValue = useCallback((): T => {
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
       return initialValue;
     }
 
@@ -119,19 +119,19 @@ export const useSessionStorage = <T>(
           value instanceof Function ? value(storedValue) : value;
         setStoredValue(valueToStore);
 
-        if (typeof window !== 'undefined') {
+        if (typeof window !== "undefined") {
           window.sessionStorage.setItem(key, JSON.stringify(valueToStore));
         }
       } catch (error) {
         console.warn(`Error setting sessionStorage key "${key}":`, error);
       }
     },
-    [key, storedValue]
+    [key, storedValue],
   );
 
   const removeValue = useCallback(() => {
     try {
-      if (typeof window !== 'undefined') {
+      if (typeof window !== "undefined") {
         window.sessionStorage.removeItem(key);
         setStoredValue(initialValue);
       }

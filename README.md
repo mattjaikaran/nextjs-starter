@@ -116,7 +116,7 @@ apply, and it resolves the API origin so contract paths (`/api/...`) are not
 double-prefixed.
 
 ```typescript
-import { todoListTodos } from '@/src/api/generated';
+import { todoListTodos } from "@/src/api/generated";
 
 const { data } = await todoListTodos({ throwOnError: true });
 ```
@@ -127,6 +127,7 @@ Query helpers live in `@/src/api/generated/@tanstack/react-query.gen`.
 ## Key Patterns
 
 ### API Layer
+
 - Axios instance with JWT token refresh and Django CSRF support
 - `BaseService` abstract class for CRUD operations
 - Domain-specific services (AuthService, TodoService)
@@ -134,6 +135,7 @@ Query helpers live in `@/src/api/generated/@tanstack/react-query.gen`.
 - Query key factories for consistent cache management
 
 ### State Management
+
 - **Zustand** for client state (auth, UI, config)
 - **TanStack Query** for server state (todos, profile)
 - Selector hooks for minimal re-renders
@@ -143,6 +145,7 @@ Query helpers live in `@/src/api/generated/@tanstack/react-query.gen`.
 See [AGENTS.md](AGENTS.md#code-standards-and-architecture-rules).
 
 ### Feature Flags
+
 ```tsx
 <FeatureFlag feature="enableTodos">
   <TodoList />

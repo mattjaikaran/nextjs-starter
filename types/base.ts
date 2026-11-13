@@ -14,4 +14,4 @@ export interface PageProps extends ComponentProps {
   description?: string;
 }
 
-export type Theme = 'light' | 'dark' | 'system';
+export type Theme = "light" | "dark" | "system";

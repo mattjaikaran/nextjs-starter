@@ -39,7 +39,7 @@ export interface PaginatedResponse<T> {
 }
 
 export function normalizePaginatedResponse<T>(
-  response: DjangoPaginatedResponse<T>
+  response: DjangoPaginatedResponse<T>,
 ): PaginatedResponse<T> {
   return {
     data: response.items,
@@ -61,16 +61,16 @@ export interface QueryParams {
 }
 
 export type FilterOperator =
-  | 'eq'
-  | 'ne'
-  | 'gt'
-  | 'gte'
-  | 'lt'
-  | 'lte'
-  | 'contains'
-  | 'icontains'
-  | 'in'
-  | 'isnull';
+  | "eq"
+  | "ne"
+  | "gt"
+  | "gte"
+  | "lt"
+  | "lte"
+  | "contains"
+  | "icontains"
+  | "in"
+  | "isnull";
 
 export interface FilterParam {
   field: string;

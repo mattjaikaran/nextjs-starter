@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button';
-import { ArrowRight, Github } from 'lucide-react';
-import Link from 'next/link';
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Github } from "lucide-react";
+import Link from "next/link";
 
 interface HeroProps {
   title?: string;
@@ -18,17 +18,16 @@ interface HeroProps {
 }
 
 export function Hero({
-  title = 'Next.js Starter',
-  subtitle = 'Build faster, ship sooner',
-  description =
-    'A modern, scalable Next.js application boilerplate built with App Router, TypeScript, and the latest development tools.',
+  title = "Next.js Starter",
+  subtitle = "Build faster, ship sooner",
+  description = "A modern, scalable Next.js application boilerplate built with App Router, TypeScript, and the latest development tools.",
   primaryAction = {
-    label: 'Get Started',
-    href: '/auth/register',
+    label: "Get Started",
+    href: "/auth/register",
   },
   secondaryAction = {
-    label: 'View on GitHub',
-    href: 'https://github.com/mattjaikaran/nextjs-starter',
+    label: "View on GitHub",
+    href: "https://github.com/mattjaikaran/nextjs-starter",
   },
 }: HeroProps) {
   return (

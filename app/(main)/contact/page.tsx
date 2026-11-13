@@ -1,19 +1,14 @@
-import type { Metadata } from 'next';
-import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
+import type { Metadata } from "next";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Github, Linkedin, Mail, Twitter } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: 'Contact | Next.js Starter',
-  description: 'Get in touch with the Next.js Starter team.',
+  title: "Contact | Next.js Starter",
+  description: "Get in touch with the Next.js Starter team.",
 };
 
 export default function ContactPage() {

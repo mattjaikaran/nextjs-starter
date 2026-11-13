@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { useTodos } from '@/hooks';
+} from "@/components/ui/card";
+import { useTodos } from "@/hooks";
 import {
   Activity,
   AlertTriangle,
@@ -16,8 +16,8 @@ import {
   CheckSquare,
   Clock,
   TrendingUp,
-} from 'lucide-react';
-import Link from 'next/link';
+} from "lucide-react";
+import Link from "next/link";
 
 export default function DashboardPage() {
   const { data: todosData, isLoading: todosLoading } = useTodos({
@@ -37,13 +37,13 @@ export default function DashboardPage() {
   };
 
   const weeklyActivityData = [
-    { label: 'Mon', value: 12 },
-    { label: 'Tue', value: 19 },
-    { label: 'Wed', value: 8 },
-    { label: 'Thu', value: 25 },
-    { label: 'Fri', value: 15 },
-    { label: 'Sat', value: 6 },
-    { label: 'Sun', value: 3 },
+    { label: "Mon", value: 12 },
+    { label: "Tue", value: 19 },
+    { label: "Wed", value: 8 },
+    { label: "Thu", value: 25 },
+    { label: "Fri", value: 15 },
+    { label: "Sat", value: 6 },
+    { label: "Sun", value: 3 },
   ];
 
   return (
@@ -112,7 +112,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="flex h-[250px] items-end justify-between gap-2">
-              {weeklyActivityData.map(day => (
+              {weeklyActivityData.map((day) => (
                 <div
                   key={day.label}
                   className="flex flex-1 flex-col items-center gap-2"
@@ -176,29 +176,37 @@ export default function DashboardPage() {
               </div>
             ) : Array.isArray(todos) && todos.length > 0 ? (
               <div className="space-y-3">
-                {todos.slice(0, 5).map((todo: { id: string; title: string; completed?: boolean }) => (
-                  <div
-                    key={todo.id}
-                    className="flex items-center gap-3 rounded-lg bg-muted/50 p-3 transition-colors hover:bg-muted"
-                  >
-                    <div
-                      className={`size-2 rounded-full ${
-                        todo.completed ? 'bg-emerald-500' : 'bg-sky-500'
-                      }`}
-                    />
-                    <div className="min-w-0 flex-1">
-                      <p
-                        className={`truncate text-sm font-medium ${
-                          todo.completed
-                            ? 'text-muted-foreground line-through'
-                            : ''
-                        }`}
+                {todos
+                  .slice(0, 5)
+                  .map(
+                    (todo: {
+                      id: string;
+                      title: string;
+                      completed?: boolean;
+                    }) => (
+                      <div
+                        key={todo.id}
+                        className="flex items-center gap-3 rounded-lg bg-muted/50 p-3 transition-colors hover:bg-muted"
                       >
-                        {todo.title}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                        <div
+                          className={`size-2 rounded-full ${
+                            todo.completed ? "bg-emerald-500" : "bg-sky-500"
+                          }`}
+                        />
+                        <div className="min-w-0 flex-1">
+                          <p
+                            className={`truncate text-sm font-medium ${
+                              todo.completed
+                                ? "text-muted-foreground line-through"
+                                : ""
+                            }`}
+                          >
+                            {todo.title}
+                          </p>
+                        </div>
+                      </div>
+                    ),
+                  )}
               </div>
             ) : (
               <div className="space-y-4 py-8 text-center">

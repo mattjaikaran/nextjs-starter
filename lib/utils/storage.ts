@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
 const getStorage = (): Storage | null => {
-  if (typeof window === 'undefined') return null;
+  if (typeof window === "undefined") return null;
   return window.localStorage;
 };
 

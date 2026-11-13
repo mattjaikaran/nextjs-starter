@@ -1,4 +1,4 @@
-import type { QueryParams } from '@/types';
+import type { QueryParams } from "@/types";
 
 type PrimitiveValue = string | number | boolean | null | undefined;
 type QueryParamValue =
@@ -8,7 +8,7 @@ type QueryParamValue =
 type QueryParamsObject = Record<string, QueryParamValue>;
 
 export const serializeParams = (params?: QueryParamsObject): string => {
-  if (!params) return '';
+  if (!params) return "";
 
   const sortedParams = Object.keys(params)
     .sort()
@@ -25,7 +25,7 @@ export const serializeParams = (params?: QueryParamsObject): string => {
 
 export const createQueryKey = (
   base: readonly string[],
-  params?: QueryParams | QueryParamsObject
+  params?: QueryParams | QueryParamsObject,
 ): readonly unknown[] => {
   if (!params || Object.keys(params).length === 0) {
     return base;
@@ -37,7 +37,7 @@ export const createPaginatedKey = (
   base: readonly string[],
   page?: number,
   limit?: number,
-  filters?: Record<string, PrimitiveValue>
+  filters?: Record<string, PrimitiveValue>,
 ): readonly unknown[] => {
   const params: QueryParamsObject = {};
   if (page !== undefined) params.page = page;
@@ -48,10 +48,10 @@ export const createPaginatedKey = (
 
 export const createQueryKeyFactory = <T extends string>(domain: T) => ({
   all: [domain] as const,
-  lists: () => [...createQueryKeyFactory(domain).all, 'list'] as const,
+  lists: () => [...createQueryKeyFactory(domain).all, "list"] as const,
   list: (params?: QueryParams) =>
     createQueryKey(createQueryKeyFactory(domain).lists(), params),
-  details: () => [...createQueryKeyFactory(domain).all, 'detail'] as const,
+  details: () => [...createQueryKeyFactory(domain).all, "detail"] as const,
   detail: (id: string) =>
     [...createQueryKeyFactory(domain).details(), id] as const,
 });

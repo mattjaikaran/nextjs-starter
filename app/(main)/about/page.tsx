@@ -1,8 +1,8 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'About | Next.js Starter',
-  description: 'Learn more about this Next.js boilerplate.',
+  title: "About | Next.js Starter",
+  description: "Learn more about this Next.js boilerplate.",
 };
 
 export default function AboutPage() {
@@ -36,7 +36,7 @@ export default function AboutPage() {
                 <ul className="space-y-1 text-sm text-muted-foreground">
                   <li>• App Router with server components</li>
                   <li>• TypeScript for type safety</li>
-                  <li>• ESLint for code quality</li>
+                  <li>• Oxlint and Oxfmt for code quality</li>
                   <li>• VS Code settings and extensions</li>
                 </ul>
               </div>

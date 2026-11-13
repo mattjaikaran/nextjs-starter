@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MagicLinkForm } from '@/forms/auth/MagicLinkForm';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MagicLinkForm } from "@/forms/auth/MagicLinkForm";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function MagicLinkPage() {
   const { push } = useRouter();
@@ -17,14 +17,17 @@ export default function MagicLinkPage() {
           </CardHeader>
           <CardContent>
             <MagicLinkForm
-              onSuccess={() => push('/dashboard')}
-              onSwitchToLogin={() => push('/login')}
+              onSuccess={() => push("/dashboard")}
+              onSwitchToLogin={() => push("/login")}
             />
           </CardContent>
         </Card>
         <p className="mt-4 text-center text-sm text-muted-foreground">
-          Remember your password?{' '}
-          <Link href="/login" className="font-medium text-primary hover:underline">
+          Remember your password?{" "}
+          <Link
+            href="/login"
+            className="font-medium text-primary hover:underline"
+          >
             Sign in with password
           </Link>
         </p>

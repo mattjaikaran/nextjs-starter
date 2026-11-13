@@ -1,4 +1,4 @@
-import type { User } from './user';
+import type { User } from "./user";
 
 export interface AuthTokens {
   accessToken: string;
@@ -11,9 +11,9 @@ export interface DjangoJWTTokens {
 }
 
 export function normalizeTokens(
-  tokens: AuthTokens | DjangoJWTTokens
+  tokens: AuthTokens | DjangoJWTTokens,
 ): AuthTokens {
-  if ('access' in tokens) {
+  if ("access" in tokens) {
     return {
       accessToken: tokens.access,
       refreshToken: tokens.refresh,

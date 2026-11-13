@@ -4,8 +4,8 @@ export {
   BaseService,
   todoKeys,
   todoService,
-} from './services';
-export type { BulkDeleteResponse, ServiceConfig, TodoStats } from './services';
+} from "./services";
+export type { BulkDeleteResponse, ServiceConfig, TodoStats } from "./services";
 
 export {
   createErrorResponse,
@@ -14,4 +14,4 @@ export {
   createSuccessResponse,
   handlePaginatedResponse,
   serializeParams,
-} from './utils';
+} from "./utils";

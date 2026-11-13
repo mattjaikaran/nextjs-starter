@@ -1,4 +1,4 @@
-import type { Theme } from './base';
+import type { Theme } from "./base";
 
 export interface UIState {
   theme: Theme;
@@ -8,7 +8,7 @@ export interface UIState {
 
 export interface Notification {
   id: string;
-  type: 'success' | 'error' | 'warning' | 'info';
+  type: "success" | "error" | "warning" | "info";
   title: string;
   message?: string;
   duration?: number;

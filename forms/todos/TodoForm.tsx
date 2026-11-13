@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -8,35 +8,35 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
-import { useCreateTodo, useUpdateTodo } from '@/hooks';
-import type { CreateTodoRequest, Todo, UpdateTodoRequest } from '@/types';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Loader2, Plus, X } from 'lucide-react';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { useCreateTodo, useUpdateTodo } from "@/hooks";
+import type { CreateTodoRequest, Todo, UpdateTodoRequest } from "@/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2, Plus, X } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const todoSchema = z.object({
   title: z
     .string()
-    .min(1, 'Title is required')
-    .max(100, 'Title must be less than 100 characters'),
+    .min(1, "Title is required")
+    .max(100, "Title must be less than 100 characters"),
   description: z
     .string()
-    .max(500, 'Description must be less than 500 characters')
+    .max(500, "Description must be less than 500 characters")
     .optional(),
-  priority: z.enum(['low', 'medium', 'high']),
+  priority: z.enum(["low", "medium", "high"]),
   dueDate: z.string().optional(),
   tags: z.array(z.string()).optional(),
 });
@@ -48,7 +48,7 @@ interface TodoFormProps {
 }
 
 export function TodoForm({ todo, onSuccess, onCancel }: TodoFormProps) {
-  const [tagInput, setTagInput] = useState('');
+  const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<string[]>(todo?.tags || []);
 
   const createTodoMutation = useCreateTodo();
@@ -61,10 +61,10 @@ export function TodoForm({ todo, onSuccess, onCancel }: TodoFormProps) {
   const form = useForm<CreateTodoRequest>({
     resolver: zodResolver(todoSchema),
     defaultValues: {
-      title: todo?.title || '',
-      description: todo?.description || '',
-      priority: todo?.priority || 'medium',
-      dueDate: todo?.dueDate || '',
+      title: todo?.title || "",
+      description: todo?.description || "",
+      priority: todo?.priority || "medium",
+      dueDate: todo?.dueDate || "",
       tags: todo?.tags || [],
     },
   });
@@ -90,16 +90,16 @@ export function TodoForm({ todo, onSuccess, onCancel }: TodoFormProps) {
   const addTag = () => {
     if (tagInput.trim() && !tags.includes(tagInput.trim())) {
       setTags([...tags, tagInput.trim()]);
-      setTagInput('');
+      setTagInput("");
     }
   };
 
   const removeTag = (tagToRemove: string) => {
-    setTags(tags.filter(tag => tag !== tagToRemove));
+    setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
   const handleTagKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       e.preventDefault();
       addTag();
     }
@@ -110,12 +110,12 @@ export function TodoForm({ todo, onSuccess, onCancel }: TodoFormProps) {
       <div className="space-y-6">
         <div className="space-y-2">
           <h2 className="text-lg font-semibold">
-            {isEditing ? 'Edit Todo' : 'Create New Todo'}
+            {isEditing ? "Edit Todo" : "Create New Todo"}
           </h2>
           <p className="text-sm text-muted-foreground">
             {isEditing
-              ? 'Update your todo details below.'
-              : 'Fill in the details to create a new todo.'}
+              ? "Update your todo details below."
+              : "Fill in the details to create a new todo."}
           </p>
         </div>
 
@@ -200,7 +200,7 @@ export function TodoForm({ todo, onSuccess, onCancel }: TodoFormProps) {
               <Input
                 placeholder="Add a tag"
                 value={tagInput}
-                onChange={e => setTagInput(e.target.value)}
+                onChange={(e) => setTagInput(e.target.value)}
                 onKeyDown={handleTagKeyDown}
               />
               <Button
@@ -215,7 +215,7 @@ export function TodoForm({ todo, onSuccess, onCancel }: TodoFormProps) {
             </div>
             {tags.length > 0 && (
               <div className="mt-2 flex flex-wrap gap-2">
-                {tags.map(tag => (
+                {tags.map((tag) => (
                   <span
                     key={tag}
                     className="inline-flex items-center gap-1 rounded-md bg-secondary px-2 py-1 text-xs text-secondary-foreground"
@@ -237,7 +237,7 @@ export function TodoForm({ todo, onSuccess, onCancel }: TodoFormProps) {
           <div className="flex gap-2 pt-4">
             <Button type="submit" disabled={isLoading} className="flex-1">
               {isLoading && <Loader2 className="mr-2 size-4 animate-spin" />}
-              {isEditing ? 'Update Todo' : 'Create Todo'}
+              {isEditing ? "Update Todo" : "Create Todo"}
             </Button>
             {onCancel && (
               <Button

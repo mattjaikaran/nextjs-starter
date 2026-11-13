@@ -1,4 +1,4 @@
-import { api, handleApiResponse } from '@/lib/api';
+import { api, handleApiResponse } from "@/lib/api";
 import type {
   ApiResponse,
   AuthResponse,
@@ -6,22 +6,22 @@ import type {
   MagicLinkRequest,
   RegisterCredentials,
   User,
-} from '@/types';
-import { createQueryKeyFactory } from '../utils/query-keys';
+} from "@/types";
+import { createQueryKeyFactory } from "../utils/query-keys";
 
 export const authKeys = {
-  ...createQueryKeyFactory('auth'),
-  profile: () => ['auth', 'profile'] as const,
-  session: () => ['auth', 'session'] as const,
+  ...createQueryKeyFactory("auth"),
+  profile: () => ["auth", "profile"] as const,
+  session: () => ["auth", "session"] as const,
 };
 
 class AuthServiceClass {
-  private readonly basePath = '/auth';
+  private readonly basePath = "/auth";
 
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
     const response = await api.post<ApiResponse<AuthResponse>>(
       `${this.basePath}/login`,
-      credentials
+      credentials,
     );
     return handleApiResponse(response);
   }
@@ -29,7 +29,7 @@ class AuthServiceClass {
   async register(credentials: RegisterCredentials): Promise<AuthResponse> {
     const response = await api.post<ApiResponse<AuthResponse>>(
       `${this.basePath}/register`,
-      credentials
+      credentials,
     );
     return handleApiResponse(response);
   }
@@ -37,7 +37,7 @@ class AuthServiceClass {
   async sendMagicLink(request: MagicLinkRequest): Promise<{ message: string }> {
     const response = await api.post<ApiResponse<{ message: string }>>(
       `${this.basePath}/magic-link`,
-      request
+      request,
     );
     return handleApiResponse(response);
   }
@@ -45,21 +45,21 @@ class AuthServiceClass {
   async verifyMagicLink(token: string): Promise<AuthResponse> {
     const response = await api.post<ApiResponse<AuthResponse>>(
       `${this.basePath}/verify-magic-link`,
-      { token }
+      { token },
     );
     return handleApiResponse(response);
   }
 
   async logout(): Promise<{ message: string }> {
     const response = await api.post<ApiResponse<{ message: string }>>(
-      `${this.basePath}/logout`
+      `${this.basePath}/logout`,
     );
     return handleApiResponse(response);
   }
 
   async getProfile(): Promise<User> {
     const response = await api.get<ApiResponse<User>>(
-      `${this.basePath}/profile`
+      `${this.basePath}/profile`,
     );
     return handleApiResponse(response);
   }
@@ -67,7 +67,7 @@ class AuthServiceClass {
   async updateProfile(updates: Partial<User>): Promise<User> {
     const response = await api.patch<ApiResponse<User>>(
       `${this.basePath}/profile`,
-      updates
+      updates,
     );
     return handleApiResponse(response);
   }
@@ -78,7 +78,7 @@ class AuthServiceClass {
   }): Promise<{ message: string }> {
     const response = await api.post<ApiResponse<{ message: string }>>(
       `${this.basePath}/change-password`,
-      data
+      data,
     );
     return handleApiResponse(response);
   }
@@ -86,7 +86,7 @@ class AuthServiceClass {
   async requestPasswordReset(email: string): Promise<{ message: string }> {
     const response = await api.post<ApiResponse<{ message: string }>>(
       `${this.basePath}/request-password-reset`,
-      { email }
+      { email },
     );
     return handleApiResponse(response);
   }
@@ -97,7 +97,7 @@ class AuthServiceClass {
   }): Promise<{ message: string }> {
     const response = await api.post<ApiResponse<{ message: string }>>(
       `${this.basePath}/reset-password`,
-      data
+      data,
     );
     return handleApiResponse(response);
   }

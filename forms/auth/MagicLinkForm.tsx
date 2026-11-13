@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -8,20 +8,20 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { useMagicLink } from '@/hooks';
-import type { MagicLinkRequest } from '@/types';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Loader2, Mail } from 'lucide-react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useMagicLink } from "@/hooks";
+import type { MagicLinkRequest } from "@/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2, Mail } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const magicLinkSchema = z.object({
   email: z
     .string()
-    .min(1, 'Email is required')
-    .email('Please enter a valid email address'),
+    .min(1, "Email is required")
+    .email("Please enter a valid email address"),
 });
 
 interface MagicLinkFormProps {
@@ -38,7 +38,7 @@ export function MagicLinkForm({
   const form = useForm<MagicLinkRequest>({
     resolver: zodResolver(magicLinkSchema),
     defaultValues: {
-      email: '',
+      email: "",
     },
   });
 
@@ -112,7 +112,7 @@ export function MagicLinkForm({
 
         {onSwitchToLogin && (
           <div className="text-center text-sm">
-            Remember your password?{' '}
+            Remember your password?{" "}
             <Button
               type="button"
               variant="link"

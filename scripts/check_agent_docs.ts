@@ -171,8 +171,8 @@ function main(): number {
           count: violations.length,
         },
         null,
-        2
-      )
+        2,
+      ),
     );
   } else {
     if (violations.length === 0) {
@@ -184,7 +184,7 @@ function main(): number {
     console.log(
       violations.length
         ? `\n${violations.length} violation(s) found.`
-        : "\n0 violations."
+        : "\n0 violations.",
     );
   }
 

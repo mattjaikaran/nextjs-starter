@@ -1,28 +1,30 @@
-'use client';
+"use client";
 
-import { generateId } from '@/lib/utils';
-import type { Notification, Theme, UIState } from '@/types';
-import { create } from 'zustand';
+import { generateId } from "@/lib/utils";
+import type { Notification, Theme, UIState } from "@/types";
+import { create } from "zustand";
 
 export interface UISlice extends UIState {
   setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
   setSidebarOpen: (open: boolean) => void;
   toggleSidebar: () => void;
-  addNotification: (notification: Omit<Notification, 'id' | 'createdAt'>) => void;
+  addNotification: (
+    notification: Omit<Notification, "id" | "createdAt">,
+  ) => void;
   removeNotification: (id: string) => void;
   clearNotifications: () => void;
 }
 
 export const useUIStore = create<UISlice>((set, get) => ({
-  theme: 'system',
+  theme: "system",
   sidebarOpen: false,
   notifications: [],
 
   setTheme: (theme) => set({ theme }),
   toggleTheme: () => {
     const { theme } = get();
-    set({ theme: theme === 'light' ? 'dark' : 'light' });
+    set({ theme: theme === "light" ? "dark" : "light" });
   },
 
   setSidebarOpen: (sidebarOpen) => set({ sidebarOpen }),

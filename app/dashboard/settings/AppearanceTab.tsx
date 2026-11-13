@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { cn } from '@/lib/utils';
-import { Globe, Palette, Save } from 'lucide-react';
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
+import { Globe, Palette, Save } from "lucide-react";
 
 export function AppearanceTab() {
   return (
@@ -31,24 +31,24 @@ export function AppearanceTab() {
             Select your preferred color scheme.
           </p>
           <div className="grid grid-cols-3 gap-4">
-            {['light', 'dark', 'system'].map(theme => (
+            {["light", "dark", "system"].map((theme) => (
               <button
                 key={theme}
                 type="button"
                 className={cn(
-                  'flex flex-col items-center gap-2 rounded-lg border-2 p-4 transition-colors',
-                  'hover:border-primary/50',
-                  'focus:outline-none focus:ring-2 focus:ring-primary'
+                  "flex flex-col items-center gap-2 rounded-lg border-2 p-4 transition-colors",
+                  "hover:border-primary/50",
+                  "focus:outline-none focus:ring-2 focus:ring-primary",
                 )}
               >
                 <div
                   className={cn(
-                    'h-20 w-full rounded-md',
-                    theme === 'light'
-                      ? 'border bg-white'
-                      : theme === 'dark'
-                        ? 'bg-zinc-900'
-                        : 'bg-gradient-to-r from-white to-zinc-900'
+                    "h-20 w-full rounded-md",
+                    theme === "light"
+                      ? "border bg-white"
+                      : theme === "dark"
+                        ? "bg-zinc-900"
+                        : "bg-gradient-to-r from-white to-zinc-900",
                   )}
                 />
                 <span className="text-sm font-medium capitalize">{theme}</span>

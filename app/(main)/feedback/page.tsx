@@ -1,51 +1,43 @@
-import type { Metadata } from 'next';
-import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import type { Metadata } from "next";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
-import { Bug, Lightbulb, MessageSquare, Star } from 'lucide-react';
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Bug, Lightbulb, MessageSquare, Star } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: 'Feedback | Next.js Starter',
-  description: 'Share your feedback and suggestions.',
+  title: "Feedback | Next.js Starter",
+  description: "Share your feedback and suggestions.",
 };
 
-
-
 export default function FeedbackPage() {
-
   const feedbackTypes = [
-    { value: 'bug', label: 'Bug Report', icon: Bug, color: 'text-red-500' },
+    { value: "bug", label: "Bug Report", icon: Bug, color: "text-red-500" },
     {
-      value: 'feature',
-      label: 'Feature Request',
+      value: "feature",
+      label: "Feature Request",
       icon: Lightbulb,
-      color: 'text-yellow-500',
+      color: "text-yellow-500",
     },
     {
-      value: 'improvement',
-      label: 'Improvement',
+      value: "improvement",
+      label: "Improvement",
       icon: Star,
-      color: 'text-blue-500',
+      color: "text-blue-500",
     },
     {
-      value: 'general',
-      label: 'General Feedback',
+      value: "general",
+      label: "General Feedback",
       icon: MessageSquare,
-      color: 'text-green-500',
+      color: "text-green-500",
     },
   ];
 
@@ -60,20 +52,20 @@ export default function FeedbackPage() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
-          {feedbackTypes.map(type => (
+          {feedbackTypes.map((type) => (
             <Card key={type.value} className="text-center">
               <CardContent className="pt-6">
                 <type.icon className={`mx-auto mb-3 size-8 ${type.color}`} />
                 <h3 className="font-semibold">{type.label}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  {type.value === 'bug' &&
+                  {type.value === "bug" &&
                     "Report issues or bugs you've encountered"}
-                  {type.value === 'feature' &&
-                    'Suggest new features or functionality'}
-                  {type.value === 'improvement' &&
-                    'Ideas to make existing features better'}
-                  {type.value === 'general' &&
-                    'Share your overall experience and thoughts'}
+                  {type.value === "feature" &&
+                    "Suggest new features or functionality"}
+                  {type.value === "improvement" &&
+                    "Ideas to make existing features better"}
+                  {type.value === "general" &&
+                    "Share your overall experience and thoughts"}
                 </p>
               </CardContent>
             </Card>
@@ -104,7 +96,7 @@ export default function FeedbackPage() {
                     <SelectValue placeholder="Select feedback type" />
                   </SelectTrigger>
                   <SelectContent>
-                    {feedbackTypes.map(type => (
+                    {feedbackTypes.map((type) => (
                       <SelectItem key={type.value} value={type.value}>
                         <div className="flex items-center gap-x-2">
                           <type.icon className={`size-4 ${type.color}`} />

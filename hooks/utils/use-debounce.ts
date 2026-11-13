@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
 /**
  * Debounce Hooks
  * Utilities for debouncing values and callbacks
  */
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
  * Hook to debounce a value
@@ -32,7 +32,7 @@ export const useDebounce = <T>(value: T, delay: number = 500): T => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const useDebouncedCallback = <T extends (...args: any[]) => unknown>(
   callback: T,
-  delay: number = 500
+  delay: number = 500,
 ): ((...args: Parameters<T>) => void) => {
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -46,7 +46,7 @@ export const useDebouncedCallback = <T extends (...args: any[]) => unknown>(
         callback(...args);
       }, delay);
     },
-    [callback, delay]
+    [callback, delay],
   );
 
   // Cleanup on unmount
@@ -67,7 +67,7 @@ export const useDebouncedCallback = <T extends (...args: any[]) => unknown>(
  */
 export const useDebounceWithLoading = <T>(
   value: T,
-  delay: number = 500
+  delay: number = 500,
 ): { debouncedValue: T; isDebouncing: boolean } => {
   const debouncedValue = useDebounce(value, delay);
   const isDebouncing = debouncedValue !== value;

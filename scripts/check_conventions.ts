@@ -30,10 +30,24 @@ import { argv, exit } from "node:process";
 
 const PROJECT_ROOT = new URL("..", import.meta.url).pathname;
 
-const SCAN_ROOTS = ["app", "components", "forms", "hooks", "lib", "types", "config"];
+const SCAN_ROOTS = [
+  "app",
+  "components",
+  "forms",
+  "hooks",
+  "lib",
+  "types",
+  "config",
+];
 
 const EXCLUDE_DIRS = new Set([
-  "node_modules", ".next", "dist", ".git", "coverage", ".vscode", "components/ui"
+  "node_modules",
+  ".next",
+  "dist",
+  ".git",
+  "coverage",
+  ".vscode",
+  "components/ui",
 ]);
 
 const API_DIRS = ["hooks/", "lib/", "app/api/"];
@@ -131,7 +145,10 @@ function* checkNoConsoleLog(files: string[]): Generator<Violation> {
     if (fpath.includes("test") || fpath.includes("setup")) continue;
     const lines = readFileSync(fpath, "utf-8").split("\n");
     for (let i = 0; i < lines.length; i++) {
-      if (/\bconsole\.log\b/.test(lines[i]) && !lines[i].trim().startsWith("//")) {
+      if (
+        /\bconsole\.log\b/.test(lines[i]) &&
+        !lines[i].trim().startsWith("//")
+      ) {
         yield {
           check: "NO_CONSOLE_LOG",
           filepath: relative(PROJECT_ROOT, fpath),
@@ -147,12 +164,16 @@ function* checkNoWindowLocation(files: string[]): Generator<Violation> {
   for (const fpath of files) {
     const lines = readFileSync(fpath, "utf-8").split("\n");
     for (let i = 0; i < lines.length; i++) {
-      if (/window\.location\.href\s*=/.test(lines[i]) && !lines[i].trim().startsWith("//")) {
+      if (
+        /window\.location\.href\s*=/.test(lines[i]) &&
+        !lines[i].trim().startsWith("//")
+      ) {
         yield {
           check: "NO_WINDOW_LOCATION",
           filepath: relative(PROJECT_ROOT, fpath),
           line: i + 1,
-          message: "window.location.href — use useRouter() from next/navigation",
+          message:
+            "window.location.href — use useRouter() from next/navigation",
         };
       }
     }
@@ -169,7 +190,8 @@ function* checkNoInlineNavigate(files: string[]): Generator<Violation> {
           check: "NO_INLINE_NAVIGATE",
           filepath: relative(PROJECT_ROOT, fpath),
           line: i + 1,
-          message: "<Navigate> in component — use redirect() in a server component instead",
+          message:
+            "<Navigate> in component — use redirect() in a server component instead",
         };
       }
     }
@@ -186,7 +208,10 @@ function* checkNoNpmYarn(files: string[]): Generator<Violation> {
     if (!existsSync(fpath)) continue;
     const lines = readFileSync(fpath, "utf-8").split("\n");
     for (let i = 0; i < lines.length; i++) {
-      if (/(npm\s+install|yarn\s+add)/.test(lines[i]) && !lines[i].trim().startsWith("//")) {
+      if (
+        /(npm\s+install|yarn\s+add)/.test(lines[i]) &&
+        !lines[i].trim().startsWith("//")
+      ) {
         yield {
           check: "NO_NPM_YARN",
           filepath: relative(PROJECT_ROOT, fpath),
@@ -373,8 +398,8 @@ function main(): number {
           count: violations.length,
         },
         null,
-        2
-      )
+        2,
+      ),
     );
   } else {
     if (violations.length === 0) {
@@ -386,7 +411,7 @@ function main(): number {
     console.log(
       violations.length
         ? `\n${violations.length} violation(s) found.`
-        : "\n0 violations."
+        : "\n0 violations.",
     );
   }
 

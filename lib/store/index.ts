@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { config } from '@/config';
-import { useAuthStore } from './slices/authSlice';
-import { useConfigStore } from './slices/configSlice';
-import { useTodoStore } from './slices/todoSlice';
-import { useUIStore } from './slices/uiSlice';
+import { config } from "@/config";
+import { useAuthStore } from "./slices/authSlice";
+import { useConfigStore } from "./slices/configSlice";
+import { useTodoStore } from "./slices/todoSlice";
+import { useUIStore } from "./slices/uiSlice";
 
-export { useAuthStore } from './slices/authSlice';
-export { useConfigStore } from './slices/configSlice';
-export { useTodoStore } from './slices/todoSlice';
-export { useUIStore } from './slices/uiSlice';
+export { useAuthStore } from "./slices/authSlice";
+export { useConfigStore } from "./slices/configSlice";
+export { useTodoStore } from "./slices/todoSlice";
+export { useUIStore } from "./slices/uiSlice";
 
 export const useAuth = () => {
   const store = useAuthStore();
@@ -50,13 +50,13 @@ export const useApiConfig = () => config.api;
 export const useAuthConfig = () => config.auth;
 export const useDjangoConfig = () => config.django;
 export const useEnvConfig = () => config.env;
-export const useIsDjangoSPA = () => config.env.mode === 'django-spa';
-export const useIsStandalone = () => config.env.mode === 'standalone';
+export const useIsDjangoSPA = () => config.env.mode === "django-spa";
+export const useIsStandalone = () => config.env.mode === "standalone";
 
 export const useTheme = () => {
   // For Next.js, theme is managed by next-themes, not Zustand
   // Import useTheme from next-themes directly when needed
-  return 'system' as const;
+  return "system" as const;
 };
 
 export const useSetTheme = () => {

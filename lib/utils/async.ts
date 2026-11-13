@@ -4,7 +4,7 @@ export function sleep(ms: number): Promise<void> {
 
 export async function retry<T>(
   fn: () => Promise<T>,
-  options: { maxAttempts?: number; delay?: number } = {}
+  options: { maxAttempts?: number; delay?: number } = {},
 ): Promise<T> {
   const { maxAttempts = 3, delay = 1000 } = options;
   let lastError: unknown;

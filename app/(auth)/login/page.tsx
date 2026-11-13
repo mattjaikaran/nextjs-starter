@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LoginForm } from '@/forms/auth/LoginForm';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { LoginForm } from "@/forms/auth/LoginForm";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const { push } = useRouter();
@@ -17,15 +17,18 @@ export default function LoginPage() {
           </CardHeader>
           <CardContent>
             <LoginForm
-              onSuccess={() => push('/dashboard')}
-              onSwitchToRegister={() => push('/register')}
-              onSwitchToMagicLink={() => push('/magic-link')}
+              onSuccess={() => push("/dashboard")}
+              onSwitchToRegister={() => push("/register")}
+              onSwitchToMagicLink={() => push("/magic-link")}
             />
           </CardContent>
         </Card>
         <p className="mt-4 text-center text-sm text-muted-foreground">
-          Don&apos;t have an account?{' '}
-          <Link href="/register" className="font-medium text-primary hover:underline">
+          Don&apos;t have an account?{" "}
+          <Link
+            href="/register"
+            className="font-medium text-primary hover:underline"
+          >
             Sign up
           </Link>
         </p>

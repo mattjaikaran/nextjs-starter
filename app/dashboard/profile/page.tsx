@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { useTodoStats } from '@/hooks';
-import { useAuth } from '@/lib/store';
-import { Calendar, Edit, Mail, MapPin, Settings } from 'lucide-react';
-import Link from 'next/link';
+} from "@/components/ui/card";
+import { useTodoStats } from "@/hooks";
+import { useAuth } from "@/lib/store";
+import { Calendar, Edit, Mail, MapPin, Settings } from "lucide-react";
+import Link from "next/link";
 
 export default function ProfilePage() {
   const { user } = useAuth();
@@ -20,7 +20,7 @@ export default function ProfilePage() {
   const userDisplayName =
     user?.firstName && user?.lastName
       ? `${user.firstName} ${user.lastName}`
-      : 'User';
+      : "User";
 
   return (
     <div className="space-y-6">
@@ -28,9 +28,7 @@ export default function ProfilePage() {
         <CardContent className="pt-6">
           <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
             <div className="flex size-24 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/50 text-3xl font-bold text-primary-foreground">
-              {user?.firstName?.[0] ||
-                user?.email?.[0]?.toUpperCase() ||
-                'U'}
+              {user?.firstName?.[0] || user?.email?.[0]?.toUpperCase() || "U"}
             </div>
 
             <div className="flex-1">
@@ -38,9 +36,12 @@ export default function ProfilePage() {
               <div className="mt-2 flex flex-wrap gap-4 text-sm text-muted-foreground">
                 <span className="flex items-center gap-1">
                   <Mail className="size-4" />
-                  {user?.email || 'No email'}
+                  {user?.email || "No email"}
                 </span>
-                <span className="flex items-center gap-1" suppressHydrationWarning>
+                <span
+                  className="flex items-center gap-1"
+                  suppressHydrationWarning
+                >
                   <Calendar className="size-4" />
                   Joined {new Date().toLocaleDateString()}
                 </span>
@@ -104,7 +105,11 @@ export default function ProfilePage() {
           <CardContent>
             <div className="text-3xl font-bold">
               {stats?.total
-                ? Math.round(((stats as { completed?: number }).completed ?? 0) / stats.total * 100)
+                ? Math.round(
+                    (((stats as { completed?: number }).completed ?? 0) /
+                      stats.total) *
+                      100,
+                  )
                 : 0}
               %
             </div>
@@ -120,10 +125,26 @@ export default function ProfilePage() {
         <CardContent>
           <div className="space-y-4">
             {[
-              { action: 'Completed task', item: 'Review documentation', time: '2 hours ago' },
-              { action: 'Created task', item: 'Update dependencies', time: '5 hours ago' },
-              { action: 'Updated profile', item: 'Changed email', time: '1 day ago' },
-              { action: 'Completed task', item: 'Fix login bug', time: '2 days ago' },
+              {
+                action: "Completed task",
+                item: "Review documentation",
+                time: "2 hours ago",
+              },
+              {
+                action: "Created task",
+                item: "Update dependencies",
+                time: "5 hours ago",
+              },
+              {
+                action: "Updated profile",
+                item: "Changed email",
+                time: "1 day ago",
+              },
+              {
+                action: "Completed task",
+                item: "Fix login bug",
+                time: "2 days ago",
+              },
             ].map((activity) => (
               <div
                 key={activity.item}
@@ -133,7 +154,7 @@ export default function ProfilePage() {
                 <div className="flex-1">
                   <p className="text-sm">
                     <span className="font-medium">{activity.action}</span>
-                    {' · '}
+                    {" · "}
                     <span className="text-muted-foreground">
                       {activity.item}
                     </span>
